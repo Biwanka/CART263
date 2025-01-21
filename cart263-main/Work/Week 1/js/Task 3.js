@@ -14,8 +14,8 @@ const square = {
         },
         velocity: {
             x: 0,
-            y: 0.5,
-        },
+            y: 1,
+        }
     },
 
     two: {
@@ -37,7 +37,8 @@ const square = {
             r: undefined,
             g: undefined,
             b: undefined,
-        },
+        }
+
     }
 }
 
@@ -56,9 +57,17 @@ function draw() {
 
     if (square.one.x === 60) {
         square.one.y = square.one.y + square.one.velocity.y;
+        resetSquare();
     }
 
 }
+
+function resetSquare() {
+    if (square.one.y > 400) {
+        square.one.y = 0;
+    }
+}
+
 
 function drawSquares() {
 

@@ -1,8 +1,6 @@
 "use strict";
 
-
 const square = {
-
     one: {
         x: 60,
         y: 60,
@@ -12,10 +10,7 @@ const square = {
             g: undefined,
             b: undefined,
         },
-        velocity: {
-            x: 0,
-            y: 0.5,
-        },
+
     },
 
     two: {
@@ -26,9 +21,8 @@ const square = {
             r: undefined,
             g: undefined,
             b: undefined,
-        },
+        }
     },
-
     three: {
         x: 90,
         y: 90,
@@ -38,11 +32,9 @@ const square = {
             g: undefined,
             b: undefined,
         },
+
     }
 }
-
-
-
 function setup() {
     console.log("go")
     createCanvas(900, 400);
@@ -51,37 +43,32 @@ function setup() {
 
 function draw() {
     background("black");
-
     drawSquares();
-
-    if (square.one.x === 60) {
-        square.one.y = square.one.y + square.one.velocity.y;
-    }
-
 }
 
 function drawSquares() {
-
     push();
     fill(28, 223, 230);
-    rect(square.one.x, square.one.y, square.one.size);
+    ellipse(square.one.x, square.one.y, square.one.size);
     pop();
 
     push();
     fill(169, 230, 28);
-    rect(square.two.x, square.two.y, square.two.size);
+    ellipse(square.two.x, square.two.y, square.two.size);
     pop();
+
 
     push();
     fill(28, 223, 230);
-    rect(square.three.x, square.three.y, square.three.size);
+    ellipse(square.three.x, square.three.y, square.three.size);
     pop();
-}
 
+}
 
 function mousePressed() {
     if (square.two.size === 65) {
         square.two.x += 10;
+
     }
 }
 
