@@ -8,7 +8,7 @@ function setup() {
     /* 1: all paragraph elements */
     /***CODE: */ console.log(document.querySelectorAll("p"))
     /***OUTPUT: 
-     * 
+     * NodeList(9) [p#1, p#2.img-descript, p#3.img-descript, p#4.img-descript, p#5.img-descript, p#6.img-descript, p#7.img-descript, p#8.img-descript, p#9.img-descript]
      */
 
 
@@ -16,23 +16,32 @@ function setup() {
     /* 2: only the first paragraph element */
     /***CODE */  console.log(document.querySelectorAll("p")[0])
     /***OUTPUT: 
-     * 
+     * <p id="1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias perspiciatis blanditiis, et
+                laborum praesentium earum. Enim facere, quia commodi voluptate, quis asperiores, pariatur ducimus
+                officiis non
+                quasi officia sit veniam!
+            </p>
      */
 
 
     /*************************************** */
     /* 3: all elements with the class inner-container */
-    /***CODE */
+    /***CODE */ console.log(document.querySelectorAll(".inner-container"))
     /***OUTPUT: 
-     * 
+     * NodeList(8) [div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container, div.inner-container]
      */
 
 
     /*************************************** */
     /* 4: the last image element inside the element that has the class img-container */
     /***CODE */
+    // how to find the last numer of the array console.log(document.querySelectorAll(".img-container").length - 1)
+    console.log(document.querySelectorAll(".img-container")[7])
     /***OUTPUT: 
-     * 
+     * <div class="img-container">
+     * <img class="img-image" src="task-1-images/seventeen.png">
+     * </div>
      */
 
 
@@ -41,16 +50,25 @@ function setup() {
     /* 5B: length of the list in 5A */
     /* 5C: the text content of the first element in the list from 5A */
     /***CODE */
+  /*** 5A: */   console.log(document.querySelectorAll("h2"))
+  /*** 5B: */   console.log(document.querySelectorAll("h2").length)
+  /*** 5C: */   console.log(document.querySelectorAll("h2")[0].textContent)
     /***OUTPUT: 
-     * 
+     * 5A : NodeList [h2]
+    "0": h2
+
+     *5B: 1
+
+     *5C: The header of this fancy page
+
      */
 
 
     /*************************************** */
     /* 6: the element with id name parent */
-    /***CODE */
+    /***CODE */ console.log(document.getElementById("parent"))
     /***OUTPUT: 
-     * 
+     * <section id="parent"> .... </section>
      */
 
     /*************************************** */
@@ -62,30 +80,34 @@ function setup() {
     /*************************************** */
     /* 1: Select the first paragraph and replace the text within the paragraph... */
     /***CODE */
+    document.querySelectorAll("p")[0].innerText = "Bianca Gauthier and Emma Beldick, 2025-01-21"
     /*************************************** */
     /* 2: Select all elements in the HTML that have the class name content-container
      and change the background color ... of first and second ...*/
     /***CODE */
-
+    document.querySelectorAll(".content-container")[0].style.background = "orange";
+    document.querySelectorAll(".content-container")[1].style.background = "purple";
     /*************************************** */
     /* 3: Change the src element of the first image element on the page to be ...
     /***CODE */
-
+    document.querySelectorAll(".img-image")[0].src = "task-1-images/seven.png"
     /*************************************** */
     /* 4: Select the third paragraph element on the page and 
     replace the content (within the paragraph) to be an h2 element which contains the text `TEST 123`
     /***CODE */
+    document.querySelectorAll("p")[2].innerHTML = "<h2> TEST 123 </h2>"
 
     /*************************************** */
     /* 5: Select the fourth paragraph element on the page and 
     add to the existing content an h2 element containing the text `TEST 123`
     /***CODE */
-
+    document.querySelectorAll("p")[3].innerHTML += "<h2> TEST 123 </h2>"
     /*************************************** */
     /* 6: Select the fifth paragraph element on the page and add to the existing content 
     an img element that holds `one.png`, and add the class newStyle to said paragraph element.
     /***CODE */
-
+    document.querySelectorAll("p")[4].classList.add(".newStyle")
+    document.querySelectorAll("p")[4].innerHTML += "<img src= 'task-1-images/one.png'/>"
 
     /*************************************** */
     /* 7: Add the following array variable: let colors = ['red','blue','green','orange'];, 
