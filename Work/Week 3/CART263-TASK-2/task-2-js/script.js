@@ -2,60 +2,60 @@
 
 window.onload = setup;
 
-function setup () {
-    console.log("go task 2");
+function setup() {
+  console.log("go task 2");
 
- 
-/* GIVEN * : An object containing the current settings for drawing 
-*  THESE  presets will need to be modified ... 
-*/  
-    let currentPresets = {
-        color: "red",
-        stroke: 1,
-        shape: "square",
-        borderRadius: "0px",
-        isDrawing: true,
-        drawingMode: "mouse-move",
-      };
 
-/* GIVEN *  a reference to the div in which we will allow for drawing ... 
-*
-*/
-let pCanvas = document.getElementById("mouseCanvas");
+  /* GIVEN * : An object containing the current settings for drawing 
+  *  THESE  presets will need to be modified ... 
+  */
+  let currentPresets = {
+    color: "red",
+    stroke: 1,
+    shape: "square",
+    borderRadius: "0px",
+    isDrawing: true,
+    drawingMode: "mouse-move",
+  };
 
-/* GIVEN *  the event listener to detect if the mouse is moving in the div 
-* with id `mouseCanvas`. The callback function is addAPoint
-*
-*/
+  /* GIVEN *  a reference to the div in which we will allow for drawing ... 
+  *
+  */
+  let pCanvas = document.getElementById("mouseCanvas");
+
+  /* GIVEN *  the event listener to detect if the mouse is moving in the div 
+  * with id `mouseCanvas`. The callback function is addAPoint
+  *
+  */
   pCanvas.addEventListener("mousemove", addAPoint);
 
 
-/* GIVEN *  this function when called will check if drawing 
-* is true and the drawing mode is mouse-move then it will call the function to create a new point
-*
-*/
+  /* GIVEN *  this function when called will check if drawing 
+  * is true and the drawing mode is mouse-move then it will call the function to create a new point
+  *
+  */
 
-function addAPoint(event) {
+  function addAPoint(event) {
     if (currentPresets.isDrawing === true && currentPresets.drawingMode === "mouse-move") {
       createNewDrawingPoint(event.clientX, event.clientY);
     }
   }
 
 
- /* GIVEN *  the event listener to detect if the mouse is being clicked in the div 
-  * with id `mouseCanvas`
-  * TO DO *
-  * WILL HAVE DUAL FUNCTIONALITY (DEPENDENT ON THE DDRAWING MODE)
-  * EITHER WILL SWITCH DRAWING OFF (LIKE LIFTING UP YOUR PEN)
-  * OR
-  * WILL ADD A POINT TO THE CANVAS 
-  
-  */
+  /* GIVEN *  the event listener to detect if the mouse is being clicked in the div 
+   * with id `mouseCanvas`
+   * TO DO *
+   * WILL HAVE DUAL FUNCTIONALITY (DEPENDENT ON THE DDRAWING MODE)
+   * EITHER WILL SWITCH DRAWING OFF (LIKE LIFTING UP YOUR PEN)
+   * OR
+   * WILL ADD A POINT TO THE CANVAS 
+   
+   */
   pCanvas.addEventListener("click", function (event) {
     if (currentPresets.drawingMode === "mouse-move") {
       //turn drawing on / off
       // TO DO
-     
+
     }
     //the click is now the drawing mode :)
     else {
@@ -64,10 +64,10 @@ function addAPoint(event) {
   });
 
 
-/* GIVEN * function to create a new drawing point.
-*
-*/
-function createNewDrawingPoint(mouseX, mouseY) {
+  /* GIVEN * function to create a new drawing point.
+  *
+  */
+  function createNewDrawingPoint(mouseX, mouseY) {
     //get the mouse canvas
     let pCanvas = document.getElementById("mouseCanvas");
     // get the RENDERED coordinates
@@ -80,7 +80,7 @@ function createNewDrawingPoint(mouseX, mouseY) {
     //calculate the point to draw on the canvas
     let offsetX = Math.floor(mouseX - renderedCoordinates.x);
     let offsetY = Math.floor(mouseY - renderedCoordinates.y);
- 
+
 
     // set the left and top
     newDiv.style.left = offsetX + "px";
@@ -94,7 +94,7 @@ function createNewDrawingPoint(mouseX, mouseY) {
     newDiv.style.width = currentPresets.stroke + "px";
     newDiv.style.height = currentPresets.stroke + "px";
 
-        /**** NOTE HOW THE PRESETS ARE USED TO ASSIGN THE STYLE */
+    /**** NOTE HOW THE PRESETS ARE USED TO ASSIGN THE STYLE */
     //also set the border radius
     newDiv.style.borderRadius = currentPresets.borderRadius;
     //color
@@ -113,9 +113,9 @@ function createNewDrawingPoint(mouseX, mouseY) {
   *  3: Finally access all the current points drawn (hint: they all have the class name `point`)
      and change their current background color to the selected color.
   */
-  let colorButtons= document.querySelectorAll(".color-button");
-   
-   /*B:: STROKE BUTTON ********************************************/
+  let colorButtons = document.querySelectorAll(".color-button");
+
+  /*B:: STROKE BUTTON ********************************************/
   /* TO DO: 
   *  1: Access the stroke button and assign an event listener to listen for the click event
   *  2: Write a callback function - that when the stroke button is clicked, access  the variable
@@ -124,7 +124,7 @@ function createNewDrawingPoint(mouseX, mouseY) {
   *  3: Finally access all the current points drawn (hint: they all have the class name `point`)
      and change their current stroke value to the updated value.
   */
-   let strokeButton = document.querySelector("#change-stroke-button");
+  let strokeButton = document.querySelector("#change-stroke-button");
 
   /*C:: SHAPE BUTTON ********************************************/
   /* TO DO: 
@@ -137,10 +137,45 @@ function createNewDrawingPoint(mouseX, mouseY) {
   *  3: Finally access all the current points drawn (hint: they all have the class name `point`)
      and change their current border-radius value to the updated value.
   */
-     let shapeButton = document.querySelector("#change-shape-button");
+  let shapeButton = document.querySelector("#change-shape-button");
+
+  shapeButton.addEventListener("click", squareShape);
+
+  function squareShape(e) {
+    changeShape();
+    console.log(e);
+
+    function changeShape() {
+      const points = document.querySelectorAll(".point");
+      if (currentPresets.shape === "square") {
+        console.log(currentPresets.shape);
+        currentPresets.shape = "circle";
+        currentPresets.borderRadius = "5px";
+        document.querySelectorAll(".point");
+        document.querySelector("#change-shape-button").innerHTML = "<p>circle</p>";
+        for (let i = 0; i < points.length; i++) {
+          document.querySelectorAll(".points")[i].style.borderRadius = "5px";
+        }
+
+      }
+
+      else {
+        currentPresets.shape = "square";
+        currentPresets.borderRadius = "0px";
+        console.log(currentPresets.shape);
+        document.querySelector("#change-shape-button").innerHTML = "<p>square</p>";
+        for (let i = 0; i < points.length; i++) {
+          document.querySelectorAll(".point")[i].style.borderRadius = "0px";
+        }
+      }
+    }
 
 
-   /*D:: CHANGE DRAWING MODE ********************************************/
+
+  }
+
+
+  /*D:: CHANGE DRAWING MODE ********************************************/
   /* TO DO: 
   *  1: Access the shape and assign an event listener to listen for the click event
   *  2: Write a callback function - that when the mode button is clicked, access the variable
@@ -154,7 +189,7 @@ function createNewDrawingPoint(mouseX, mouseY) {
   */
   let modeButton = document.querySelector("#change-mode-button");
 
-   /*E:: OPACITY BUTTON ********************************************/
+  /*E:: OPACITY BUTTON ********************************************/
   /* TO DO: 
   *  1: Access the opacity button and assign an event listener to listen for the click event
   *  2: Write a callback function - that when the opacity button is clicked, access  the variable
@@ -163,7 +198,7 @@ function createNewDrawingPoint(mouseX, mouseY) {
   *  3: Finally access all the current points drawn (hint: they all have the class name `point`)
      and change their current opacity value to the updated value.
   */
-     let opacityButton = document.querySelector("#change-opacity-button");
+  let opacityButton = document.querySelector("#change-opacity-button");
 
   /*F:: ERASE BUTTON ********************************************/
   /* TO DO: 
