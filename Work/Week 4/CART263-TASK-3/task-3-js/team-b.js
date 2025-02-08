@@ -133,7 +133,6 @@ function setup_B() {
 
   function aniC(parentCanvas) {
 
-    //let randomWord = ["Ahhhhh", "..."]
 
     console.log("in C");
 
