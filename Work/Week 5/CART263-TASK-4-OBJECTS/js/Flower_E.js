@@ -1,16 +1,12 @@
-// you do not put the word function in a class as it is already implemented 
-//when it is a class
-class Flower {
-
+class Flower_E {
     constructor(x, y, size, stemLength, petalColor) {
-        // We write instructions to set up a Flower here
-        // Position and size information
         this.x = x;
         this.y = y;
         this.size = size;
         this.stemLength = stemLength;
-        this.stemThickness = 10;
-        this.petalThickness = 8;
+
+        this.stemThickness = 5;
+        this.petalThickness = 4;
         this.flowerStemDiv = document.createElement("div");
         this.flowerPetalDiv = document.createElement("div");
 
@@ -27,56 +23,43 @@ class Flower {
             b: 0,
         };
 
-        //keep a reference to the flower object
         let self = this;//keep a copy of 'this'
 
-        //add event listener and the call back
-        this.flowerStemDiv.addEventListener("click", growStem);
-
-        function growStem(e) {
+        this.flowerPetalDiv.addEventListener("click", changeColor);
+        function changeColor(e) {
+            console.log(e.target);
+            console.log(this);
             console.log(self);
-            //this is the div :)
-            //console.log(self);
-            self.stemLength = self.stemLength + 10;
-
-            //update the actual div...
-            self.flowerStemDiv.style.height = self.stemLength + "px";
-            self.flowerStemDiv.style.top = self.y - self.stemLength + "px";
-
-            // and also the petal element needs to move up
-            self.flowerPetalDiv.style.top =
-                self.y - self.stemLength - self.size / 2 + "px";
-
-            console.log(self);
-
+            self.petalColor = {
+                r: parseInt(Math.random() * 256),
+                g: parseInt(Math.random() * 256),
+                b: parseInt(Math.random() * 256),
+            };
+            self.flowerPetalDiv.style.borderColor = `rgb(${self.petalColor.r}, ${self.petalColor.g}, ${self.petalColor.b})`;
         }
 
-
-
     }
-
-
     //render method
-    renderFlower() {
+    renderFlower_E() {
         this.flowerStemDiv.classList.add("flower");
         this.flowerStemDiv.style.width = this.stemThickness + "px";
         this.flowerStemDiv.style.height = this.stemLength + "px";
-        this.flowerStemDiv.style.background = `rgb(${this.stemColor.r},${this.stemColor.g},${this.stemColor.b})`;
+        this.flowerStemDiv.style.background = `rgb(${this.stemColor.r}, ${this.stemColor.g}, ${this.stemColor.b})`;
         this.flowerStemDiv.style.left = this.x + "px";
         this.flowerStemDiv.style.top = this.y - this.stemLength + "px";
         //add to the DOM
         document.getElementsByClassName("grass")[0].appendChild(this.flowerStemDiv);
-
         this.flowerPetalDiv.classList.add("petal");
         this.flowerPetalDiv.style.width = this.size + "px";
         this.flowerPetalDiv.style.height = this.size + "px";
-        this.flowerPetalDiv.style.borderRadius = this.size + "px";
-        this.flowerPetalDiv.style.background = `rgb(${this.centreColor.r},${this.centreColor.g},${this.centreColor.b})`;
+        this.flowerPetalDiv.style.borderRadius = "0px";
+        this.flowerPetalDiv.style.background = `rgb(${this.centreColor.r}, ${this.centreColor.g}, ${this.centreColor.b})`;
         this.flowerPetalDiv.style.left = (this.x - this.size / 2) + "px";
         this.flowerPetalDiv.style.top = (this.y - this.stemLength - this.size / 2) + "px";
         this.flowerPetalDiv.style.borderWidth = this.petalThickness + "px";
-        this.flowerPetalDiv.style.borderColor = `rgb(${this.petalColor.r},${this.petalColor.g},${this.petalColor.b})`;
+        this.flowerPetalDiv.style.borderColor = `rgb(${this.petalColor.r}, ${this.petalColor.g}, ${this.petalColor.b})`;
         //add to the DOM
         document.getElementsByClassName("grass")[0].appendChild(this.flowerPetalDiv);
     }
+
 }

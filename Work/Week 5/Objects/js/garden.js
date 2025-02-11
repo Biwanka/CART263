@@ -30,17 +30,19 @@ window.onload = function () {
             skyDiv: document.createElement("div"),
         },
 
-        /*sun object */
-        sun: {
-            sunColor: {
-                r: 240,
-                g: 206,
-                b: 83,
-            },
-            //the sun element
-            sunDiv: document.createElement("div"),
-        },
+        // /*sun object */
+        // sun: {
+        //     sunColor: {
+        //         r: 240,
+        //         g: 206,
+        //         b: 83,
+        //     },
+        //     //the sun element
+        //     sunDiv: document.createElement("div"),
+        // },
     };
+
+    let sun = new Sun(10, 10, { r: 240, g: 206, b: 83 })
     /**
      * 
      * how it will behave 
@@ -125,11 +127,13 @@ window.onload = function () {
         garden.sky.skyDiv.style.background = `rgb(${garden.sky.skyColor.r},${garden.sky.skyColor.g},${garden.sky.skyColor.b})`;
         document.getElementsByTagName("main")[0].appendChild(garden.sky.skyDiv);
 
-        //sun - IN the sky
-        garden.sun.sunDiv.classList.add("sun");
-        garden.sun.sunDiv.style.background = `rgb(${garden.sun.sunColor.r},${garden.sun.sunColor.g},${garden.sun.sunColor.b})`;
-        //append to the SKY div
-        document.getElementsByClassName("sky")[0].appendChild(garden.sun.sunDiv);
+        // //sun - IN the sky
+        // garden.sun.sunDiv.classList.add("sun");
+        // garden.sun.sunDiv.style.background = `rgb(${garden.sun.sunColor.r},${garden.sun.sunColor.g},${garden.sun.sunColor.b})`;
+        // //append to the SKY div
+        // document.getElementsByClassName("sky")[0].appendChild(garden.sun.sunDiv);
+
+        sun.renderSun();
 
         //grass
         garden.grass.grassDiv.classList.add("grass");
@@ -142,11 +146,28 @@ window.onload = function () {
     createAndRenderTheGarden();
 
 
-    // add numFlowers at one time
+    // // add numFlowers at one time
+    // for (let i = 0; i < garden.numFlowers; i++) {
+    //     // garden.flowers.push(createFlower());
+    //     // NEW! Create a new flower
+    //     let flower = new Flower();
+    //     // Add the flower to the array of flowers
+    //     garden.flowers.push(flower);
+    // }
     for (let i = 0; i < garden.numFlowers; i++) {
-        // garden.flowers.push(createFlower());
-        // NEW! Create a new flower
-        let flower = new Flower();
+        // Create variables for our arguments for clarity
+        let x = Math.random() * (window.innerWidth);
+        let y = Math.random() * 120;
+        let size = Math.random() * 30 + 50;
+        let stemLength = Math.random() * 50 + 50;
+        let petalColor = {
+            r: parseInt(Math.random() * 155) + 100,
+            g: parseInt(Math.random() * 155) + 100,
+            b: parseInt(Math.random() * 155) + 100,
+        };
+
+        // Create a new flower using the arguments
+        let flower = new Flower(x, y, size, stemLength, petalColor);
         // Add the flower to the array of flowers
         garden.flowers.push(flower);
     }
