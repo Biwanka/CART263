@@ -76,7 +76,39 @@ class VideoObj {
   updatePositionRect(mx, my) {
     /** FILL IN */
   }
+  //called when rectangle Pos is to be updated
+  updatePositionRect(e) {
+    /** FILL IN */
+    if (!this.canvas) return;
+
+    let mx = e.clientX - this.canvas.getBoundingClientRect().left;
+    let my = e.clientY - this.canvas.getBoundingClientRect().top;
+
+    this.shapeX = mx - 25;
+    this.shapeY = my - 25;
+    this.render();
+  }
+  clickCanvas(e) {
+    this.shapeCol = this.shapeCol === "#000000" ? this.newCol : "#000000";
+    console.log("rectangle color change to:", this.shapeCol);
+    this.render();
+  }
+  addMouseMoveListener() {
+    if (!this.canvas) return;
+    this.canvas.addEventListener("mousemove", (e) => this.updatePositionRect(e));
+  }
+  addClickListener() {
+    if (!this.canvas) return;
+    this.canvas.addEventListener("click", (e) => this.clickCanvas(e));
+  }
+  render() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.display();
+  }
+
   update(videoElement) {
     this.videoElement = videoElement;
   }
 }
+
+
