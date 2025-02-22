@@ -62,16 +62,10 @@ function go_all_stuff() {
         drawingBoardD.run(videoEl)
         window.requestAnimationFrame(animationLoop);
     }
-
-    /**
-     * 
-     * What i added to have the microphone connect 
-     * 
-     */
-
     /* Start Microphone Input */
     getMicrophoneInput(rectObj);
 }
+
 
 //  **Microphone Setup**
 async function getMicrophoneInput(rectObj) {
