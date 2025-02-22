@@ -33,6 +33,9 @@ function go_all_stuff() {
     let drawingBoardB = new DrawingBoard(theCanvases[1], theContexts[1], theCanvases[1].id);
     //add a rectangular object to canvas B
     // drawingBoardB.addObj(new RectangularObj(100, 100, 50, 70, "#FF5733", "#E6E6FA", drawingBoardB.context))
+    /**
+     * ADD the 2 next lines 
+     */
     let rectObj = new RectangularObj(100, 100, 50, 70, "#FF5733", "#E6E6FA", drawingBoardB.context);
     drawingBoardB.addObj(rectObj); //added this
     drawingBoardB.display();
@@ -59,11 +62,18 @@ function go_all_stuff() {
         drawingBoardD.run(videoEl)
         window.requestAnimationFrame(animationLoop);
     }
+
+    /**
+     * 
+     * What i added to have the microphone connect 
+     * 
+     */
+
     /* Start Microphone Input */
     getMicrophoneInput(rectObj);
 }
 
-// 🎤 **Microphone Setup**
+//  **Microphone Setup**
 async function getMicrophoneInput(rectObj) {
     console.log("Starting Microphone Input...");
 

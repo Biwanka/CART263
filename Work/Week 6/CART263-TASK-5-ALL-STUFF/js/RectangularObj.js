@@ -21,6 +21,11 @@ class RectangularObj {
     this.context.strokeRect(this.x, this.y, this.width, this.height);
   }
 
+  /**
+   * 
+   * Added changes 
+   * 
+   */
   update() {
     // Animation: Slight horizontal movement
     this.x += Math.sin(Date.now() * 0.002) * 2;
