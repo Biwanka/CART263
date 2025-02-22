@@ -17,6 +17,12 @@ class VideoObj {
     let filterButton_blur = document.getElementById("filter_button_blur");
     let blurInput = document.getElementById("blurnum");
 
+    /**
+     * 
+     * ADD these 3 filter botton 
+     * 
+     */
+
     let filterButton_sepia = document.getElementById("filter_button_sepia");
     let sepiaInput = document.getElementById("sepianum");
 
@@ -34,6 +40,11 @@ class VideoObj {
       console.log(self.userProvidedBlur);
     });
 
+    /**
+    * 
+    * ADD these 3 filter botton 
+    * 
+    */
     filterButton_sepia.addEventListener("click", function () {
 
       self.userProvidedSepia = sepiaInput.value;
@@ -56,9 +67,9 @@ class VideoObj {
   display() {
     this.context.save();
     this.context.filter = `blur(${this.userProvidedBlur}px)`;
-    this.context.filter += `sepia(${this.userProvidedSepia}%)`;
-    this.context.filter += `hue-rotate(${this.userProvidedHue}deg)`;
-    this.context.filter += `invert(${this.userProvidedInvert}%)`;
+    this.context.filter += `sepia(${this.userProvidedSepia}%)`; //ADD
+    this.context.filter += `hue-rotate(${this.userProvidedHue}deg)`; //ADD
+    this.context.filter += `invert(${this.userProvidedInvert}%)`; //ADD
     this.context.drawImage(this.videoElement, this.x, this.y, this.w, this.h);
     this.context.fillStyle = this.shapeCol;
     this.context.fillRect(this.shapeX, this.shapeY, 50, 50)
