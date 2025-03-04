@@ -27,29 +27,34 @@ let characterStill = {
 
 }
 
-const rightWall = {
-    x: undefined,
-    y: undefined,
-    width: 30,
-    height: 600,
-    image: undefined
-}
-
-const lefttWall = {
-    x: undefined,
-    y: undefined,
-    width: 30,
-    height: 600,
-    image: undefined
-}
-
 const longHallway = {
 
     x: undefined,
     y: undefined,
-    width: 50,
+    width: 150,
     height: 600,
-    image: undefined
+    image: undefined,
+
+    rigthWall:
+
+    {
+        x: undefined,
+        y: undefined,
+        width: 30,
+        height: 600,
+        image: undefined
+    },
+
+    lefttWall:
+
+    {
+        x: undefined,
+        y: undefined,
+        width: 30,
+        height: 600,
+        image: undefined
+    }
+
 }
 
 let gameBackdrop = {
@@ -73,6 +78,7 @@ function setup() {
     background(gameBackdrop.image);
 
     characterStill.image.front.resize(75, 80);
+    longHallway.image.resize(150, 600);
 
 }
 
@@ -100,10 +106,10 @@ function drawCharacter() {
 
 function drawLongHallway() {
     push();
-    rectMode(CENTER);
-    imageMode(CENTER);
-    rect(100, 10, longHallway.width, longHallway.height);
-    image(longHallway.image, 100, 10);
+    //rectMode(CENTER);
+    //imageMode(CENTER);
+    rect(300, 0, longHallway.width, longHallway.height);
+    image(longHallway.image, 300, 0);
     pop();
 
 }
