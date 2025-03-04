@@ -35,7 +35,7 @@ const longHallway = {
     x: undefined,
     y: undefined,
     width: 50,
-    height: 60,
+    height: 600,
     image: undefined
 }
 
@@ -44,13 +44,13 @@ let gameBackdrop = {
 }
 
 function preload() {
-    longHallway.image = loadImage("assets/images/Long_Hallway.png");
+    longHallway.image = loadImage("assets/images/trial.png");
     gameBackdrop.image = loadImage("assets/images/Paper_Backdrop.png");
 }
 
 function setup() {
     console.log("go")
-    createCanvas(800, 600);
+    createCanvas(1000, 650);
     background(gameBackdrop.image);
 
 
@@ -72,8 +72,9 @@ function draw() {
 function drawLongHallway() {
     push();
     rectMode(CENTER);
-    rect(100, 0, longHallway.width, longHallway.height);
-    image(longHallway.image, 100, 0);
+    imageMode(CENTER);
+    rect(100, 10, longHallway.width, longHallway.height);
+    image(longHallway.image, 100, 10);
     pop();
 
 }
