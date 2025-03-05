@@ -29,27 +29,25 @@ let characterStill = {
 
 const longHallway = {
 
-    x: undefined,
-    y: undefined,
-    width: 150,
-    height: 600,
-    image: undefined,
-
-    rigthWall:
-
-    {
+    floor: {
         x: undefined,
         y: undefined,
+        width: 150,
+        height: 600,
+        image: undefined,
+    },
+
+    rigthWall: {
+        x: longHallway.floor.x + 5,
+        y: longHallway.floor.y,
         width: 30,
         height: 600,
         image: undefined
     },
 
-    lefttWall:
-
-    {
-        x: undefined,
-        y: undefined,
+    leftWall: {
+        x: longHallway.floor.x - 5,
+        y: longHallway.floor.y,
         width: 30,
         height: 600,
         image: undefined
