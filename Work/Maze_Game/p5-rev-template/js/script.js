@@ -1,14 +1,11 @@
 "use strict";
 
-
-// let characterBackWalk = [
-//     {
-
-//     }
-// ]
-
+/**
+ * Draws the charcter and has the different images to make it walk
+ */
 const characterWalk = {
 
+    //the standard start of the charcter
     x: 100,
     y: 100,
     height: 55,
@@ -16,12 +13,14 @@ const characterWalk = {
     imageFront: undefined,
     imageBack: undefined,
 
+    //the images for the character walking facing the player . (going down)
     front: {
         imageRightLeg: undefined,
         imageMiddle: undefined,
         imageLeftLeg: undefined,
     },
 
+    //the images for the character walking facing away from the player (going up)
     back: {
         imageRightLeg: undefined,
         imageMiddle: undefined,
@@ -34,11 +33,7 @@ const characterWalk = {
 
 }
 
-// const characterFrontWalk = {
-
-
-// }
-
+//draws a rectangle hallway
 const longHallway = {
 
     floor: {
@@ -67,9 +62,13 @@ const longHallway = {
 
 }
 
+//to help move the charcter between images 
 let legPosition = 0;
+
+//to help with the keydown. when the charcter is moving or not
 let isMoving = false;
 
+//the paper texture of the canvas
 let gameBackdrop = {
     image: undefined,
 }
@@ -105,7 +104,7 @@ function setup() {
     console.log("go")
     createCanvas(1000, 650);
 
-
+    //resize the images to fit better the game
     characterWalk.imageFront.resize(75, 80);
     characterWalk.imageBack.resize(75, 80);
 
@@ -123,19 +122,16 @@ function setup() {
 
 function draw() {
     background(gameBackdrop.image);
-    //  for (let characterFrontWalk of characterFrontWalks) {
-
-
-    // }
+    moveCharacter();
 
     drawLongHallway();
     drawCharacter();
-    moveCharacter();
+
     //  blockWallCharacter();
 
 }
 
-
+//makes the character walk
 function moveCharacter() {
     //  console.log(keyIsDown)
 
@@ -147,6 +143,7 @@ function moveCharacter() {
     if (keyIsDown(UP_ARROW)) {
         isMoving = true;
 
+        //the character moves up
         characterWalk.y -= 2;
 
         if (frameCount % 10 === 0) {
@@ -168,6 +165,7 @@ function moveCharacter() {
     if (keyIsDown(DOWN_ARROW)) {
         isMoving = true;
 
+        //character moves down
         characterWalk.y += 2;
 
         if (frameCount % 10 === 0) {
@@ -189,7 +187,7 @@ function moveCharacter() {
     else {
         isMoving = false;
         characterWalk.imageFront = characterWalk.imageFront;
-
+        //it isnt working!!!!!!!
     }
 
 }
