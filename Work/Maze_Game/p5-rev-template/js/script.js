@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Draws the charcter and has the different images to make it walk
+ * Draws the character and has the different images to make it walk
  */
 const characterWalk = {
 
@@ -193,6 +193,7 @@ function moveCharacter() {
 }
 
 
+//draws the character
 function drawCharacter() {
 
     push();
