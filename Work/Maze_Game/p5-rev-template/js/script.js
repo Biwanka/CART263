@@ -6,7 +6,7 @@
 const character = {
 
     //the standard start of the charcter
-    x: 200,
+    x: 450,
     y: 100,
     width: 45,
     height: 55,
@@ -65,10 +65,10 @@ const longHallway = {
         width: 25,
         height: 650,
         image: undefined,
-        block: {
-            x: 125 + 25,
-            y: undefined,
-        },
+        // block: {
+        //     x: 125 + 25,
+        //     y: undefined,
+        // },
     },
 
     rightWall: {
@@ -77,10 +77,10 @@ const longHallway = {
         width: 25,
         height: 650,
         image: undefined,
-        block: {
-            x: 300 - 25,
-            y: undefined,
-        },
+        // block: {
+        //     x: 300 - 25,
+        //     y: undefined,
+        // },
     },
 }
 
@@ -91,8 +91,8 @@ const hallway = {
     height: 650,
     image: undefined,
     wall: {
-        min: 400 + 25,
-        max: 600 - 25,
+        left: 400 + 45,   // added the character width  from the x
+        right: 600 - 45,  // take out the character width from the x
     },
 }
 
@@ -187,7 +187,9 @@ function draw() {
 function blockWallCharacter() {
 
 
-    character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
+    // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
+
+    character.x = constrain(character.x, hallway.wall.left, hallway.wall.right);
 
     // const leftOverlap = centredRectanglesOverlap(character, longHallway.leftWall);
     // const rightOverlap = centredRectanglesOverlap(character, longHallway.rightWall);
