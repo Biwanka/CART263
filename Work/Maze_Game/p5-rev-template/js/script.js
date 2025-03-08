@@ -6,10 +6,10 @@
 const character = {
 
     //the standard start of the charcter
-    x: 170,
+    x: 200,
     y: 100,
-    height: 50,
-    width: 40,
+    width: 45,
+    height: 55,
     imageFront: undefined,
     imageBack: undefined,
 
@@ -48,27 +48,39 @@ const character = {
 const longHallway = {
 
     floor: {
-        x: 100,
+        x: 150,
         y: 0,
         width: 150,
         height: 650,
         image: undefined,
+        block: {
+            min: 150 + 25,
+            max: 300 - 25,
+        },
     },
 
     leftWall: {
-        x: 75,        //(100 - 25),//longHallway.floor.x - 25,
+        x: 125,        //(100 - 25),//longHallway.floor.x - 25,
         y: 0,
         width: 25,
         height: 650,
         image: undefined,
+        block: {
+            x: 125 + 25,
+            y: undefined,
+        },
     },
 
     rightWall: {
-        x: 250,           //(100 + 150), //longHallway.floor.x + 150,
+        x: 300,           //(100 + 150), //longHallway.floor.x + 150,
         y: 0,
         width: 25,
         height: 650,
         image: undefined,
+        block: {
+            x: 300 - 25,
+            y: undefined,
+        },
     },
 }
 
@@ -78,6 +90,10 @@ const hallway = {
     width: 200,
     height: 650,
     image: undefined,
+    wall: {
+        min: 400 + 25,
+        max: 600 - 25,
+    },
 }
 
 //to help move the charcter between images 
@@ -170,6 +186,18 @@ function draw() {
 
 function blockWallCharacter() {
 
+
+    character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
+
+    // const leftOverlap = centredRectanglesOverlap(character, longHallway.leftWall);
+    // const rightOverlap = centredRectanglesOverlap(character, longHallway.rightWall);
+
+    // if (leftOverlap) {
+    //     character.walk.x = 0;
+    // }
+    // if (rightOverlap) {
+    //     character.walk.x = 0;
+    // }
     // if (!isMoving === false) {
     //     character.walk.x = 0;
     //     character.walk.y = 0;
@@ -180,7 +208,7 @@ function blockWallCharacter() {
     //     character.walk.y = 2;
     // }
 
-    character.x = constrain(character.x, longHallway.leftWall.x, longHallway.rightWall.x);
+
     // if (character.x < longHallway.leftWall.x || character.x > longHallway.rightWall.x) {
     //     isMoving = false
     //     character.walk.x = 0;
