@@ -6,9 +6,9 @@
 const characterWalk = {
 
     //the standard start of the charcter
-    x: 100,
+    x: 150,
     y: 100,
-    height: 55,
+    height: 50,
     width: 40,
     imageFront: undefined,
     imageBack: undefined,
@@ -37,29 +37,36 @@ const characterWalk = {
 const longHallway = {
 
     floor: {
-        x: undefined,
-        y: undefined,
+        x: 100,
+        y: 0,
         width: 150,
-        height: 600,
+        height: 650,
         image: undefined,
     },
 
-    rigthWall: {
-        x: undefined,//longHallway.floor.x + 5,
-        y: undefined,//longHallway.floor.y,
+    leftWall: {
+        x: undefined,//longHallway.floor.x - 30,
+        y: 0,
         width: 30,
-        height: 600,
-        image: undefined
+        height: 650,
+        image: undefined,
     },
 
-    leftWall: {
-        x: undefined, //longHallway.floor.x - 5,
-        y: undefined,//longHallway.floor.y,
+    rightWall: {
+        x: undefined, //longHallway.floor.x + 151,
+        y: 0,
         width: 30,
-        height: 600,
-        image: undefined
-    }
+        height: 650,
+        image: undefined,
+    },
+}
 
+const hallway = {
+    x: 400,
+    y: 0,
+    width: 210,
+    height: 650,
+    image: undefined,
 }
 
 //to help move the charcter between images 
@@ -75,9 +82,18 @@ let gameBackdrop = {
 
 
 function preload() {
-    longHallway.floor.image = loadImage("assets/images/trial.png");
+
     gameBackdrop.image = loadImage("assets/images/Paper_Backdrop.png");
 
+    //long Hallways images 
+
+    longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
+    longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
+    longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
+
+    hallway.image = loadImage("assets/images/Hallway.png");
+
+    //charcter images
     characterWalk.imageFront = loadImage("assets/images/Character_Front.png");
     characterWalk.imageBack = loadImage("assets/images/Character_Back.png");
 
@@ -104,19 +120,28 @@ function setup() {
     console.log("go")
     createCanvas(1000, 650);
 
+    //resize long Hallway
+
+    longHallway.floor.image.resize(150, 650);
+    longHallway.leftWall.image.resize(30, 650);
+    longHallway.rightWall.image.resize(30, 650);
+
+    hallway.image.resize(210, 650);
+
+
     //resize the images to fit better the game
-    characterWalk.imageFront.resize(75, 80);
-    characterWalk.imageBack.resize(75, 80);
+    characterWalk.imageFront.resize(70, 75);
+    characterWalk.imageBack.resize(70, 75);
 
-    characterWalk.front.imageRightLeg.resize(75, 80);
-    characterWalk.front.imageMiddle.resize(75, 80);
-    characterWalk.front.imageLeftLeg.resize(75, 80);
+    characterWalk.front.imageRightLeg.resize(70, 75);
+    characterWalk.front.imageMiddle.resize(70, 75);
+    characterWalk.front.imageLeftLeg.resize(70, 75);
 
-    characterWalk.back.imageRightLeg.resize(75, 80);
-    characterWalk.back.imageMiddle.resize(75, 80);
-    characterWalk.back.imageLeftLeg.resize(75, 80);
+    characterWalk.back.imageRightLeg.resize(70, 75);
+    characterWalk.back.imageMiddle.resize(70, 75);
+    characterWalk.back.imageLeftLeg.resize(70, 75);
 
-    longHallway.floor.image.resize(150, 600);
+    // longHallway.floor.image.resize(150, 650);
 
 }
 
@@ -125,6 +150,7 @@ function draw() {
     moveCharacter();
 
     drawLongHallway();
+    drawHallway();
     drawCharacter();
 
     //  blockWallCharacter();
@@ -192,6 +218,39 @@ function moveCharacter() {
 
 }
 
+function drawHallway() {
+
+    push();
+    rect(hallway.x, hallway.y, hallway.width, hallway.height);
+    image(hallway.image, hallway.x, hallway.y);
+    pop();
+}
+
+
+function drawLongHallway() {
+
+    //draw Floor
+    push();
+    //rectMode(CENTER);
+    //imageMode(CENTER);
+    rect(longHallway.floor.x, longHallway.floor.y, longHallway.floor.width, longHallway.floor.height);
+    image(longHallway.floor.image, longHallway.floor.x, longHallway.floor.y);
+    pop();
+
+    //draws left wall 
+
+    push();
+    rect(longHallway.floor.x - 30, longHallway.leftWall.y, longHallway.leftWall.width, longHallway.leftWall.height);
+    image(longHallway.leftWall.image, longHallway.floor.x - 30, longHallway.leftWall.y);
+    pop();
+
+    //draws right wall 
+    push();
+    rect(longHallway.floor.x + 151, longHallway.rightWall.y, longHallway.rightWall.width, longHallway.rightWall.height);
+    image(longHallway.rightWall.image, longHallway.floor.x + 151, longHallway.rightWall.y);
+    pop();
+
+}
 
 //draws the character
 function drawCharacter() {
@@ -202,19 +261,6 @@ function drawCharacter() {
     noFill();
     rect(characterWalk.x, characterWalk.y, characterWalk.width, characterWalk.height);
     image(characterWalk.imageFront, characterWalk.x, characterWalk.y);
-    pop();
-
-}
-
-
-function drawLongHallway() {
-
-    //draw Floor
-    push();
-    //rectMode(CENTER);
-    //imageMode(CENTER);
-    rect(300, 0, longHallway.floor.width, longHallway.floor.height);
-    image(longHallway.floor.image, 300, 0);
     pop();
 
 }
