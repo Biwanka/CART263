@@ -154,11 +154,11 @@ function preload() {
     hallways.secondHallway.image = loadImage("assets/images/Second_Hallway.png");
 
 
-    longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
-    longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
-    longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
+    // longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
+    // longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
+    // longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
 
-    firstHallway.image = loadImage("assets/images/Hallway.png");
+    // firstHallway.image = loadImage("assets/images/Hallway.png");
     // secondHallway.image = loadImage("assets/images/Second_Hallway.png");
 
     //charcter images
@@ -184,13 +184,13 @@ function setup() {
         startHallway: {
             draw: function () {
                 image(hallways.startHallway.image, 400, 0);
-            }
+            },
         },
 
         secondHallway: {
             draw: function () {
                 image(hallways.secondHallway.image, 350, 0);
-            }
+            },
         }
     };
 
@@ -372,34 +372,34 @@ function moveCharacter() {
 
 }
 
-function drawFirstHallway() {
+// function drawFirstHallway() {
 
-    push();
-    // rect(hallway.x, hallway.y, hallway.width, hallway.height);
-    image(firstHallway.image, firstHallway.x, firstHallway.y);
-    pop();
-}
+//     push();
+//     // rect(hallway.x, hallway.y, hallway.width, hallway.height);
+//     image(firstHallway.image, firstHallway.x, firstHallway.y);
+//     pop();
+// }
 
 
-function drawLongHallway() {
-    //draw Floor
-    push();
-    rect(longHallway.floor.x, longHallway.floor.y, longHallway.floor.width, longHallway.floor.height);
-    image(longHallway.floor.image, longHallway.floor.x, longHallway.floor.y);
-    pop();
+// function drawLongHallway() {
+//     //draw Floor
+//     push();
+//     rect(longHallway.floor.x, longHallway.floor.y, longHallway.floor.width, longHallway.floor.height);
+//     image(longHallway.floor.image, longHallway.floor.x, longHallway.floor.y);
+//     pop();
 
-    //draws left wall 
-    push();
-    rect(longHallway.leftWall.x, longHallway.leftWall.y, longHallway.leftWall.width, longHallway.leftWall.height);
-    image(longHallway.leftWall.image, longHallway.leftWall.x, longHallway.leftWall.y);
-    pop();
+//     //draws left wall 
+//     push();
+//     rect(longHallway.leftWall.x, longHallway.leftWall.y, longHallway.leftWall.width, longHallway.leftWall.height);
+//     image(longHallway.leftWall.image, longHallway.leftWall.x, longHallway.leftWall.y);
+//     pop();
 
-    //draws right wall 
-    push();
-    rect(longHallway.rightWall.x, longHallway.rightWall.y, longHallway.rightWall.width, longHallway.rightWall.height);
-    image(longHallway.rightWall.image, longHallway.rightWall.x, longHallway.rightWall.y);
-    pop();
-}
+//     //draws right wall 
+//     push();
+//     rect(longHallway.rightWall.x, longHallway.rightWall.y, longHallway.rightWall.width, longHallway.rightWall.height);
+//     image(longHallway.rightWall.image, longHallway.rightWall.x, longHallway.rightWall.y);
+//     pop();
+// }
 
 //draws the character
 function drawCharacter() {
