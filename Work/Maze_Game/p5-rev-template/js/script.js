@@ -4,7 +4,6 @@
  * Draws the character and has the different images to make it walk
  */
 const character = {
-
     //the standard start of the charcter
     x: 450,
     y: 100,
@@ -12,36 +11,30 @@ const character = {
     height: 55,
     imageFront: undefined,
     imageBack: undefined,
-
     walk: {
         x: 2,
         y: 2,
     },
-
     //the images for the character walking facing the player . (going down)
     front: {
         imageRightLeg: undefined,
         imageMiddle: undefined,
         imageLeftLeg: undefined,
     },
-
     //the images for the character walking facing away from the player (going up)
     back: {
         imageRightLeg: undefined,
         imageMiddle: undefined,
         imageLeftLeg: undefined,
     },
-
     rightSide: {
         imageRightLeg: undefined,
         imageLeftLeg: undefined,
     },
-
     leftSide: {
         imageRightLeg: undefined,
         imageLeftLeg: undefined,
     },
-
 }
 
 //draws a rectangle hallway
@@ -58,33 +51,23 @@ const longHallway = {
             max: 300 - 25,
         },
     },
-
     leftWall: {
         x: 125,        //(100 - 25),//longHallway.floor.x - 25,
         y: 0,
         width: 25,
         height: 650,
         image: undefined,
-        // block: {
-        //     x: 125 + 25,
-        //     y: undefined,
-        // },
     },
-
     rightWall: {
         x: 300,           //(100 + 150), //longHallway.floor.x + 150,
         y: 0,
         width: 25,
         height: 650,
         image: undefined,
-        // block: {
-        //     x: 300 - 25,
-        //     y: undefined,
-        // },
     },
 }
 
-const hallway = {
+const firstHallway = {
     x: 400,
     y: 0,
     width: 200,
@@ -102,6 +85,18 @@ const hallway = {
         y: 650,
     },
 }
+
+const secondHallway = {
+    x: 200,
+    y: 0,
+    width: 500,
+    height: 650,
+    image: undefined,
+}
+
+let currentRoom = "firstHallway";
+
+let rooms = {};
 
 //to help move the charcter between images 
 let legPosition = 0;
@@ -125,7 +120,7 @@ function preload() {
     longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
     longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
 
-    hallway.image = loadImage("assets/images/Hallway.png");
+    firstHallway.image = loadImage("assets/images/Hallway.png");
 
     //charcter images
     character.imageFront = loadImage("assets/images/Character_Front.png");
@@ -160,7 +155,7 @@ function setup() {
     longHallway.leftWall.image.resize(25, 650);
     longHallway.rightWall.image.resize(25, 650);
 
-    hallway.image.resize(200, 650);
+    firstHallway.image.resize(200, 650);
 
 
     //resize the images to fit better the game
@@ -179,12 +174,13 @@ function setup() {
 
 }
 
+
 function draw() {
     background(gameBackdrop.image);
     moveCharacter();
 
     drawLongHallway();
-    drawHallway();
+    drawFirstHallway();
     drawCharacter();
 
     blockWallCharacter();
@@ -196,7 +192,7 @@ function blockWallCharacter() {
 
     // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
 
-    character.x = constrain(character.x, hallway.wall.left, hallway.wall.right);
+    character.x = constrain(character.x, firstHallway.wall.left, firstHallway.wall.right);
 
     // const leftOverlap = centredRectanglesOverlap(character, longHallway.leftWall);
     // const rightOverlap = centredRectanglesOverlap(character, longHallway.rightWall);
@@ -336,11 +332,11 @@ function moveCharacter() {
 
 }
 
-function drawHallway() {
+function drawFirstHallway() {
 
     push();
-    rect(hallway.x, hallway.y, hallway.width, hallway.height);
-    image(hallway.image, hallway.x, hallway.y);
+    // rect(hallway.x, hallway.y, hallway.width, hallway.height);
+    image(firstHallway.image, firstHallway.x, firstHallway.y);
     pop();
 }
 
