@@ -3,15 +3,20 @@
 /**
  * Draws the character and has the different images to make it walk
  */
-const characterWalk = {
+const character = {
 
     //the standard start of the charcter
-    x: 150,
+    x: 170,
     y: 100,
     height: 50,
     width: 40,
     imageFront: undefined,
     imageBack: undefined,
+
+    walk: {
+        x: 2,
+        y: 2,
+    },
 
     //the images for the character walking facing the player . (going down)
     front: {
@@ -27,9 +32,15 @@ const characterWalk = {
         imageLeftLeg: undefined,
     },
 
-    //     side: {
-    // image
-    //     }
+    rightSide: {
+        imageRightLeg: undefined,
+        imageLeftLeg: undefined,
+    },
+
+    leftSide: {
+        imageRightLeg: undefined,
+        imageLeftLeg: undefined,
+    },
 
 }
 
@@ -45,17 +56,17 @@ const longHallway = {
     },
 
     leftWall: {
-        x: undefined,//longHallway.floor.x - 30,
+        x: 75,        //(100 - 25),//longHallway.floor.x - 25,
         y: 0,
-        width: 30,
+        width: 25,
         height: 650,
         image: undefined,
     },
 
     rightWall: {
-        x: undefined, //longHallway.floor.x + 151,
+        x: 250,           //(100 + 150), //longHallway.floor.x + 150,
         y: 0,
-        width: 30,
+        width: 25,
         height: 650,
         image: undefined,
     },
@@ -64,7 +75,7 @@ const longHallway = {
 const hallway = {
     x: 400,
     y: 0,
-    width: 210,
+    width: 200,
     height: 650,
     image: undefined,
 }
@@ -94,16 +105,16 @@ function preload() {
     hallway.image = loadImage("assets/images/Hallway.png");
 
     //charcter images
-    characterWalk.imageFront = loadImage("assets/images/Character_Front.png");
-    characterWalk.imageBack = loadImage("assets/images/Character_Back.png");
+    character.imageFront = loadImage("assets/images/Character_Front.png");
+    character.imageBack = loadImage("assets/images/Character_Back.png");
 
-    characterWalk.front.imageRightLeg = loadImage("assets/images/Character_Front_Right.png");
-    characterWalk.front.imageMiddle = loadImage("assets/images/Character_Front_Middle.png");
-    characterWalk.front.imageLeftLeg = loadImage("assets/images/Character_Front_Left.png");
+    character.front.imageRightLeg = loadImage("assets/images/Character_Front_Right.png");
+    character.front.imageMiddle = loadImage("assets/images/Character_Front_Middle.png");
+    character.front.imageLeftLeg = loadImage("assets/images/Character_Front_Left.png");
 
-    characterWalk.back.imageRightLeg = loadImage("assets/images/Character_Back_Right.png");
-    characterWalk.back.imageMiddle = loadImage("assets/images/Character_Back_Middle.png");
-    characterWalk.back.imageLeftLeg = loadImage("assets/images/Character_Back_Left.png");
+    character.back.imageRightLeg = loadImage("assets/images/Character_Back_Right.png");
+    character.back.imageMiddle = loadImage("assets/images/Character_Back_Middle.png");
+    character.back.imageLeftLeg = loadImage("assets/images/Character_Back_Left.png");
 
     // characterFrontWalk.imageRightLeg = loadImage("assets/images/Character_Front_Right.png");
     // characterFrontWalk.imageLeftLeg = loadImage("assets/images/Character_Front_Left.png");
@@ -123,23 +134,23 @@ function setup() {
     //resize long Hallway
 
     longHallway.floor.image.resize(150, 650);
-    longHallway.leftWall.image.resize(30, 650);
-    longHallway.rightWall.image.resize(30, 650);
+    longHallway.leftWall.image.resize(25, 650);
+    longHallway.rightWall.image.resize(25, 650);
 
-    hallway.image.resize(210, 650);
+    hallway.image.resize(200, 650);
 
 
     //resize the images to fit better the game
-    characterWalk.imageFront.resize(70, 75);
-    characterWalk.imageBack.resize(70, 75);
+    character.imageFront.resize(70, 75);
+    character.imageBack.resize(70, 75);
 
-    characterWalk.front.imageRightLeg.resize(70, 75);
-    characterWalk.front.imageMiddle.resize(70, 75);
-    characterWalk.front.imageLeftLeg.resize(70, 75);
+    character.front.imageRightLeg.resize(70, 75);
+    character.front.imageMiddle.resize(70, 75);
+    character.front.imageLeftLeg.resize(70, 75);
 
-    characterWalk.back.imageRightLeg.resize(70, 75);
-    characterWalk.back.imageMiddle.resize(70, 75);
-    characterWalk.back.imageLeftLeg.resize(70, 75);
+    character.back.imageRightLeg.resize(70, 75);
+    character.back.imageMiddle.resize(70, 75);
+    character.back.imageLeftLeg.resize(70, 75);
 
     // longHallway.floor.image.resize(150, 650);
 
@@ -153,8 +164,34 @@ function draw() {
     drawHallway();
     drawCharacter();
 
-    //  blockWallCharacter();
+    blockWallCharacter();
 
+}
+
+function blockWallCharacter() {
+
+    // if (!isMoving === false) {
+    //     character.walk.x = 0;
+    //     character.walk.y = 0;
+    // }
+
+    // else if (!isMoving === true) {
+    //     character.walk.x = 2;
+    //     character.walk.y = 2;
+    // }
+
+    character.x = constrain(character.x, longHallway.leftWall.x, longHallway.rightWall.x);
+    // if (character.x < longHallway.leftWall.x || character.x > longHallway.rightWall.x) {
+    //     isMoving = false
+    //     character.walk.x = 0;
+    //     character.walk.y = 0;
+    // }
+
+    // if (character.x < longHallway.leftWall.x || character.x > longHallway.rightWall.x) {
+    //     isMoving = false
+    //     character.walk.x = 0;
+    //     character.walk.y = 0;
+    // }
 }
 
 //makes the character walk
@@ -170,19 +207,19 @@ function moveCharacter() {
         isMoving = true;
 
         //the character moves up
-        characterWalk.y -= 2;
+        character.y = character.y - character.walk.y;
 
         if (frameCount % 10 === 0) {
             if (legPosition === 0) {
-                characterWalk.imageFront = characterWalk.back.imageRightLeg;
+                character.imageFront = character.back.imageRightLeg;
                 legPosition = 1;
             }
             else if (legPosition === 1) {
-                characterWalk.imageFront = characterWalk.back.imageMiddle;
+                character.imageFront = character.back.imageMiddle;
                 legPosition = 2;
             }
             else if (legPosition === 2) {
-                characterWalk.imageFront = characterWalk.back.imageLeftLeg;
+                character.imageFront = character.back.imageLeftLeg;
                 legPosition = 0;
             }
         }
@@ -192,19 +229,63 @@ function moveCharacter() {
         isMoving = true;
 
         //character moves down
-        characterWalk.y += 2;
+        character.y = character.y + character.walk.y;
 
         if (frameCount % 10 === 0) {
             if (legPosition === 0) {
-                characterWalk.imageFront = characterWalk.front.imageRightLeg;
+                character.imageFront = character.front.imageRightLeg;
                 legPosition = 1;
             }
             else if (legPosition === 1) {
-                characterWalk.imageFront = characterWalk.front.imageMiddle;
+                character.imageFront = character.front.imageMiddle;
                 legPosition = 2;
             }
             else if (legPosition === 2) {
-                characterWalk.imageFront = characterWalk.front.imageLeftLeg;
+                character.imageFront = character.front.imageLeftLeg;
+                legPosition = 0;
+            }
+        }
+    }
+
+    if (keyIsDown(LEFT_ARROW)) {
+        isMoving = true;
+
+        //the character moves left
+        character.x = character.x - character.walk.x;
+
+        if (frameCount % 10 === 0) {
+            if (legPosition === 0) {
+                character.imageFront = character.back.imageRightLeg;
+                legPosition = 1;
+            }
+            else if (legPosition === 1) {
+                character.imageFront = character.back.imageMiddle;
+                legPosition = 2;
+            }
+            else if (legPosition === 2) {
+                character.imageFront = character.back.imageLeftLeg;
+                legPosition = 0;
+            }
+        }
+    }
+
+    if (keyIsDown(RIGHT_ARROW)) {
+        isMoving = true;
+
+        //the character moves right
+        character.x = character.x + character.walk.x;
+
+        if (frameCount % 10 === 0) {
+            if (legPosition === 0) {
+                character.imageFront = character.back.imageRightLeg;
+                legPosition = 1;
+            }
+            else if (legPosition === 1) {
+                character.imageFront = character.back.imageMiddle;
+                legPosition = 2;
+            }
+            else if (legPosition === 2) {
+                character.imageFront = character.back.imageLeftLeg;
                 legPosition = 0;
             }
         }
@@ -212,7 +293,7 @@ function moveCharacter() {
 
     else {
         isMoving = false;
-        characterWalk.imageFront = characterWalk.imageFront;
+        character.imageFront = character.imageFront;
         //it isnt working!!!!!!!
     }
 
@@ -240,14 +321,14 @@ function drawLongHallway() {
     //draws left wall 
 
     push();
-    rect(longHallway.floor.x - 30, longHallway.leftWall.y, longHallway.leftWall.width, longHallway.leftWall.height);
-    image(longHallway.leftWall.image, longHallway.floor.x - 30, longHallway.leftWall.y);
+    rect(longHallway.leftWall.x, longHallway.leftWall.y, longHallway.leftWall.width, longHallway.leftWall.height);
+    image(longHallway.leftWall.image, longHallway.leftWall.x, longHallway.leftWall.y);
     pop();
 
     //draws right wall 
     push();
-    rect(longHallway.floor.x + 151, longHallway.rightWall.y, longHallway.rightWall.width, longHallway.rightWall.height);
-    image(longHallway.rightWall.image, longHallway.floor.x + 151, longHallway.rightWall.y);
+    rect(longHallway.rightWall.x, longHallway.rightWall.y, longHallway.rightWall.width, longHallway.rightWall.height);
+    image(longHallway.rightWall.image, longHallway.rightWall.x, longHallway.rightWall.y);
     pop();
 
 }
@@ -259,8 +340,24 @@ function drawCharacter() {
     rectMode(CENTER);
     imageMode(CENTER);
     noFill();
-    rect(characterWalk.x, characterWalk.y, characterWalk.width, characterWalk.height);
-    image(characterWalk.imageFront, characterWalk.x, characterWalk.y);
+    rect(character.x, character.y, character.width, character.height);
+    image(character.imageFront, character.x, character.y);
     pop();
 
 }
+
+
+
+
+/**
+* Returns true if a and b overlap, and false otherwise
+* Assumes a and b have properties x, y, width and height to describe
+* their rectangles, and that a and b are displayed centred on their
+* x,y coordinates.*/
+function centredRectanglesOverlap(a, b) {
+    return (a.x + a.height / 2 > b.x - b.width / 2 &&
+        a.x - a.height / 2 < b.x + b.width / 2 &&
+        a.y + a.height / 2 > b.y - b.height / 2 &&
+        a.y - a.height / 2 < b.y + b.height / 2);
+}
+
