@@ -39,7 +39,6 @@ const character = {
 
 //draws a rectangle hallway
 const longHallway = {
-
     floor: {
         x: 150,
         y: 0,
@@ -74,8 +73,8 @@ const firstHallway = {
     height: 650,
     image: undefined,
     wall: {
-        left: 400 + 45,   // added the character width  from the x
-        right: 600 - 45,  // take out the character width from the x
+        left: 400 + 50,   // added the character width  from the x
+        right: 600 - 50,  // take out the character width from the x
     },
     top: {
         y: 0,
@@ -86,12 +85,47 @@ const firstHallway = {
     },
 }
 
-const secondHallway = {
-    x: 200,
-    y: 0,
-    width: 500,
-    height: 650,
-    image: undefined,
+// const secondHallway = {
+//     x: 200,
+//     y: 0,
+//     width: 500,
+//     height: 650,
+//     image: undefined,
+// }
+
+let hallways = {
+
+    startHallway: {
+        image: undefined,
+        wall: {
+            left: 400 + 50,
+            right: 600 - 50,
+        },
+
+        top: {
+            y: 0,
+        },
+
+        bottom: {
+            y: 650,
+        },
+    },
+
+    secondHallway: {
+
+        image: null,
+        wall: {
+            left: undefined,
+            right: undefined,
+        },
+        top: {
+            y: 0,
+        },
+
+        bottom: {
+            y: 650,
+        },
+    },
 }
 
 let currentRoom = "firstHallway";
@@ -116,11 +150,16 @@ function preload() {
 
     //long Hallways images 
 
+    hallways.startHallway.image = loadImage("assets/images/Hallway.png");
+    hallways.secondHallway.image = loadImage("assets/images/Second_Hallway.png");
+
+
     longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
     longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
     longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
 
     firstHallway.image = loadImage("assets/images/Hallway.png");
+    // secondHallway.image = loadImage("assets/images/Second_Hallway.png");
 
     //charcter images
     character.imageFront = loadImage("assets/images/Character_Front.png");
@@ -134,29 +173,38 @@ function preload() {
     character.back.imageMiddle = loadImage("assets/images/Character_Back_Middle.png");
     character.back.imageLeftLeg = loadImage("assets/images/Character_Back_Left.png");
 
-    // characterFrontWalk.imageRightLeg = loadImage("assets/images/Character_Front_Right.png");
-    // characterFrontWalk.imageLeftLeg = loadImage("assets/images/Character_Front_Left.png");
-    // characterFrontWalk.imageMiddle = loadImage("assets/images/Character_Front_Middle.png");
-
-    // characterBackWalk.imageRightLeg = loadImage("assets/images/Character_Back_Right.png");
-    // characterBackWalk.imageLeftLeg = loadImage("assets/images/Character_Back_Left.png");
-
-    // characterStill.imageFront = loadImage("assets/images/Character_Front.png");
-    // characterStill.imageBack = loadImage("assets/images/Character_Back.png");
 }
 
 function setup() {
     console.log("go")
     createCanvas(1000, 650);
 
-    //resize long Hallway
+    rooms = {
 
-    longHallway.floor.image.resize(150, 650);
-    longHallway.leftWall.image.resize(25, 650);
-    longHallway.rightWall.image.resize(25, 650);
+        startHallway: {
+            draw: function () {
+                image(hallways.startHallway.image, 400, 0);
+            }
+        },
 
-    firstHallway.image.resize(200, 650);
+        secondHallway: {
+            draw: function () {
+                image(hallways.secondHallway.image, 350, 0);
+            }
+        }
+    };
 
+
+    hallways.startHallway.image.resize(200, 650);
+    hallways.secondHallway.image.resize(500, 650);
+
+    // //resize long Hallway
+    // longHallway.floor.image.resize(150, 650);
+    // longHallway.leftWall.image.resize(25, 650);
+    // longHallway.rightWall.image.resize(25, 650);
+
+    // firstHallway.image.resize(200, 650);
+    // //secondHallway.image.resize(500, 650);
 
     //resize the images to fit better the game
     character.imageFront.resize(70, 75);
@@ -170,61 +218,53 @@ function setup() {
     character.back.imageMiddle.resize(70, 75);
     character.back.imageLeftLeg.resize(70, 75);
 
-    // longHallway.floor.image.resize(150, 650);
-
 }
-
 
 function draw() {
     background(gameBackdrop.image);
     moveCharacter();
 
-    drawLongHallway();
-    drawFirstHallway();
+    if (rooms[currentRoom]) {
+        rooms[currentRoom].draw();
+    };
+
+    // drawLongHallway();
+    // drawFirstHallway();
     drawCharacter();
 
     blockWallCharacter();
 
+    checkRoomTransition();
+
 }
 
-function blockWallCharacter() {
+function checkRoomTransition() {
 
+    //go into a new room from the top 
+    if (currentRoom === "startHallway" && character.y <= rooms.hallways.startHallway.top.y) {
+        currentRoom = "secondHallway";
+        character.y = 649;
+    }
+
+    if (currentRoom === "secondHallway" && character.y <= rooms.hallways.secondHallway.top.y) {
+        currentRoom = "thirdHallway";
+        character.y = 649;
+    }
+
+    //come back to a room from the bottom
+    if (currentRoom === "secondHallway" && character.y >= rooms.hallways.secondHallway.bottom.y) {
+        currentRoom = "startHallway";
+        character.y = 1;
+    }
+}
+
+
+function blockWallCharacter() {
 
     // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
 
     character.x = constrain(character.x, firstHallway.wall.left, firstHallway.wall.right);
 
-    // const leftOverlap = centredRectanglesOverlap(character, longHallway.leftWall);
-    // const rightOverlap = centredRectanglesOverlap(character, longHallway.rightWall);
-
-    // if (leftOverlap) {
-    //     character.walk.x = 0;
-    // }
-    // if (rightOverlap) {
-    //     character.walk.x = 0;
-    // }
-    // if (!isMoving === false) {
-    //     character.walk.x = 0;
-    //     character.walk.y = 0;
-    // }
-
-    // else if (!isMoving === true) {
-    //     character.walk.x = 2;
-    //     character.walk.y = 2;
-    // }
-
-
-    // if (character.x < longHallway.leftWall.x || character.x > longHallway.rightWall.x) {
-    //     isMoving = false
-    //     character.walk.x = 0;
-    //     character.walk.y = 0;
-    // }
-
-    // if (character.x < longHallway.leftWall.x || character.x > longHallway.rightWall.x) {
-    //     isMoving = false
-    //     character.walk.x = 0;
-    //     character.walk.y = 0;
-    // }
 }
 
 //makes the character walk
@@ -342,17 +382,13 @@ function drawFirstHallway() {
 
 
 function drawLongHallway() {
-
     //draw Floor
     push();
-    //rectMode(CENTER);
-    //imageMode(CENTER);
     rect(longHallway.floor.x, longHallway.floor.y, longHallway.floor.width, longHallway.floor.height);
     image(longHallway.floor.image, longHallway.floor.x, longHallway.floor.y);
     pop();
 
     //draws left wall 
-
     push();
     rect(longHallway.leftWall.x, longHallway.leftWall.y, longHallway.leftWall.width, longHallway.leftWall.height);
     image(longHallway.leftWall.image, longHallway.leftWall.x, longHallway.leftWall.y);
@@ -363,20 +399,17 @@ function drawLongHallway() {
     rect(longHallway.rightWall.x, longHallway.rightWall.y, longHallway.rightWall.width, longHallway.rightWall.height);
     image(longHallway.rightWall.image, longHallway.rightWall.x, longHallway.rightWall.y);
     pop();
-
 }
 
 //draws the character
 function drawCharacter() {
-
     push();
-    rectMode(CENTER);
+    // rectMode(CENTER);
     imageMode(CENTER);
     noFill();
-    rect(character.x, character.y, character.width, character.height);
+    // rect(character.x, character.y, character.width, character.height);
     image(character.imageFront, character.x, character.y);
     pop();
-
 }
 
 
