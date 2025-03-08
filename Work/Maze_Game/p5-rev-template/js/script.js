@@ -94,6 +94,13 @@ const hallway = {
         left: 400 + 45,   // added the character width  from the x
         right: 600 - 45,  // take out the character width from the x
     },
+    top: {
+        y: 0,
+    },
+
+    bottom: {
+        y: 650,
+    },
 }
 
 //to help move the charcter between images 
