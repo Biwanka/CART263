@@ -181,7 +181,7 @@ function setup() {
     createCanvas(1000, 650);
 
     hallways.startHallway.image.resize(200, 650);
-    hallways.secondHallway.image.resize(600, 650);
+    hallways.secondHallway.image.resize(650, 650);
 
     //resize the images to fit better the game
     character.imageFront.resize(70, 75);
