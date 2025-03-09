@@ -231,6 +231,7 @@ function setup() {
 
 function draw() {
 
+    // this is the paper texture in the background
     background(gameBackdrop.image);
 
     //this is what draws the room. it will check which room the character 
