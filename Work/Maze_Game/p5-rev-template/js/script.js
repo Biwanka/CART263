@@ -115,8 +115,8 @@ let hallways = {
 
         image: undefined,
         wall: {
-            left: undefined,
-            right: undefined,
+            left: 400 + 50,
+            right: 600 - 50,
         },
         top: {
             y: 0,
@@ -150,6 +150,7 @@ function preload() {
 
     //long Hallways images 
 
+
     hallways.startHallway.image = loadImage("assets/images/Hallway.png");
     hallways.secondHallway.image = loadImage("assets/images/Second_Hallway.png");
 
@@ -179,24 +180,9 @@ function setup() {
     console.log("go")
     createCanvas(1000, 650);
 
-    rooms = {
-
-        startHallway: {
-            draw: function () {
-                image(hallways.startHallway.image, 400, 0);
-            },
-        },
-
-        secondHallway: {
-            draw: function () {
-                image(hallways.secondHallway.image, 500, 0);
-            },
-        },
-    };
-
-
     hallways.startHallway.image.resize(200, 650);
-    hallways.secondHallway.image.resize(500, 650);
+    hallways.secondHallway.image.resize(600, 650);
+
 
     // //resize long Hallway
     // longHallway.floor.image.resize(150, 650);
@@ -218,14 +204,32 @@ function setup() {
     character.back.imageMiddle.resize(70, 75);
     character.back.imageLeftLeg.resize(70, 75);
 
+    rooms = {
+
+        startHallway: {
+            draw: function () {
+                push();
+                imageMode(CORNER);
+                image(hallways.startHallway.image, 400, 0);
+                pop();
+            },
+        },
+
+        secondHallway: {
+            draw: function () {
+                push();
+                imageMode(CORNER);
+                image(hallways.secondHallway.image, 350, 0);
+                pop();
+            },
+        },
+    };
+
 }
 
 function draw() {
 
-    console.log(character.y);
-
     background(gameBackdrop.image);
-    moveCharacter();
 
     if (rooms[currentRoom]) {
         rooms[currentRoom].draw();
@@ -233,9 +237,12 @@ function draw() {
 
     // drawLongHallway();
     // drawFirstHallway();
-    drawCharacter();
 
+    moveCharacter();
     blockWallCharacter();
+
+
+    drawCharacter();
 
     checkRoomTransition();
 
@@ -243,23 +250,24 @@ function draw() {
 
 function checkRoomTransition() {
 
-
-
     //go into a new room from the top 
     if (currentRoom === "startHallway" && character.y <= hallways.startHallway.top.y) {
         currentRoom = "secondHallway";
         character.y = 649;
+        character.imageFront = character.front.imageMiddle;
     }
 
-    if (currentRoom === "secondHallway" && character.y <= hallways.secondHallway.top.y) {
-        currentRoom = "thirdHallway";
-        character.y = 649;
-    }
+    // if (currentRoom === "secondHallway" && character.y <= hallways.secondHallway.top.y) {
+    //     currentRoom = "thirdHallway";
+    //     character.y = 649;
+    // character.imageFront = character.front.imageMiddle;
+    // }
 
     //come back to a room from the bottom
     if (currentRoom === "secondHallway" && character.y >= hallways.secondHallway.bottom.y) {
         currentRoom = "startHallway";
         character.y = 1;
+        character.imageFront = character.front.imageMiddle;
     }
 }
 
@@ -379,6 +387,23 @@ function moveCharacter() {
 
 }
 
+function drawCharacter() {
+
+    console.log("Current Character Image:", character.imageFront);
+
+    if (!character.imageFront) {
+        console.error("Character image is undefined!");
+        return;  // Stop drawing if no image is set
+    }
+    push();
+    // rectMode(CENTER);
+    imageMode(CENTER);
+    noFill();
+    //  rect(character.x, character.y, character.width, character.height);
+    image(character.imageFront, character.x, character.y);
+    pop();
+}
+
 // function drawFirstHallway() {
 
 //     push();
@@ -409,13 +434,4 @@ function moveCharacter() {
 // }
 
 //draws the character
-function drawCharacter() {
-    push();
-    // rectMode(CENTER);
-    imageMode(CENTER);
-    noFill();
-    // rect(character.x, character.y, character.width, character.height);
-    image(character.imageFront, character.x, character.y);
-    pop();
-}
 
