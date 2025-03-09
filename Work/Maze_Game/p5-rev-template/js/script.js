@@ -5,7 +5,7 @@
  */
 const character = {
     //the standard start of the charcter
-    x: 450,
+    x: 500,
     y: 100,
     width: 45,
     height: 55,
@@ -113,7 +113,7 @@ let hallways = {
 
     secondHallway: {
 
-        image: null,
+        image: undefined,
         wall: {
             left: undefined,
             right: undefined,
@@ -128,7 +128,7 @@ let hallways = {
     },
 }
 
-let currentRoom = "firstHallway";
+let currentRoom = "startHallway";
 
 let rooms = {};
 
@@ -189,9 +189,9 @@ function setup() {
 
         secondHallway: {
             draw: function () {
-                image(hallways.secondHallway.image, 350, 0);
+                image(hallways.secondHallway.image, 500, 0);
             },
-        }
+        },
     };
 
 
@@ -221,6 +221,9 @@ function setup() {
 }
 
 function draw() {
+
+    console.log(character.y);
+
     background(gameBackdrop.image);
     moveCharacter();
 
@@ -240,19 +243,21 @@ function draw() {
 
 function checkRoomTransition() {
 
+
+
     //go into a new room from the top 
-    if (currentRoom === "startHallway" && character.y <= rooms.hallways.startHallway.top.y) {
+    if (currentRoom === "startHallway" && character.y <= hallways.startHallway.top.y) {
         currentRoom = "secondHallway";
         character.y = 649;
     }
 
-    if (currentRoom === "secondHallway" && character.y <= rooms.hallways.secondHallway.top.y) {
+    if (currentRoom === "secondHallway" && character.y <= hallways.secondHallway.top.y) {
         currentRoom = "thirdHallway";
         character.y = 649;
     }
 
     //come back to a room from the bottom
-    if (currentRoom === "secondHallway" && character.y >= rooms.hallways.secondHallway.bottom.y) {
+    if (currentRoom === "secondHallway" && character.y >= hallways.secondHallway.bottom.y) {
         currentRoom = "startHallway";
         character.y = 1;
     }
@@ -261,9 +266,11 @@ function checkRoomTransition() {
 
 function blockWallCharacter() {
 
+    let currentHallway = hallways[currentRoom];
+
     // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
 
-    character.x = constrain(character.x, firstHallway.wall.left, firstHallway.wall.right);
+    character.x = constrain(character.x, currentHallway.wall.left, currentHallway.wall.right);
 
 }
 
