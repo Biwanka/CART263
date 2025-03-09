@@ -1,4 +1,56 @@
 "use strict";
+/** 
+//draws a rectangle hallway
+const longHallway = {
+    floor: {
+        x: 150,
+        y: 0,
+        width: 150,
+        height: 650,
+        image: undefined,
+        block: {
+            min: 150 + 25,
+            max: 300 - 25,
+        },
+    },
+    leftWall: {
+        x: 125,        //(100 - 25),//longHallway.floor.x - 25,
+        y: 0,
+        width: 25,
+        height: 650,
+        image: undefined,
+    },
+    rightWall: {
+        x: 300,           //(100 + 150), //longHallway.floor.x + 150,
+        y: 0,
+        width: 25,
+        height: 650,
+        image: undefined,
+    },
+}
+*/
+
+/** 
+const firstHallway = {
+    x: 400,
+    y: 0,
+    width: 200,
+    height: 650,
+    image: undefined,
+    wall: {
+        left: 400 + 50,   // added the character width  from the x
+        right: 600 - 50,  // take out the character width from the x
+    },
+    top: {
+        y: 0,
+    },
+
+    bottom: {
+        y: 650,
+    },
+}
+*/
+
 
 /**
  * Draws the character and has the different images to make it walk
@@ -37,62 +89,7 @@ const character = {
     },
 }
 
-//draws a rectangle hallway
-const longHallway = {
-    floor: {
-        x: 150,
-        y: 0,
-        width: 150,
-        height: 650,
-        image: undefined,
-        block: {
-            min: 150 + 25,
-            max: 300 - 25,
-        },
-    },
-    leftWall: {
-        x: 125,        //(100 - 25),//longHallway.floor.x - 25,
-        y: 0,
-        width: 25,
-        height: 650,
-        image: undefined,
-    },
-    rightWall: {
-        x: 300,           //(100 + 150), //longHallway.floor.x + 150,
-        y: 0,
-        width: 25,
-        height: 650,
-        image: undefined,
-    },
-}
-
-const firstHallway = {
-    x: 400,
-    y: 0,
-    width: 200,
-    height: 650,
-    image: undefined,
-    wall: {
-        left: 400 + 50,   // added the character width  from the x
-        right: 600 - 50,  // take out the character width from the x
-    },
-    top: {
-        y: 0,
-    },
-
-    bottom: {
-        y: 650,
-    },
-}
-
-// const secondHallway = {
-//     x: 200,
-//     y: 0,
-//     width: 500,
-//     height: 650,
-//     image: undefined,
-// }
-
+//this is where all information on each hallway/rooms are held.
 let hallways = {
 
     startHallway: {
@@ -112,7 +109,6 @@ let hallways = {
     },
 
     secondHallway: {
-
         image: undefined,
         wall: {
             left: 400 + 50,
@@ -126,10 +122,17 @@ let hallways = {
             y: 650,
         },
     },
+
+    //     // Simulating flickering lights in a spooky hallway
+    //     if(frameCount % 30 < 15) {
+    //         fill(255);
+    // rect(0, 0, width, height);
 }
 
+//creates the state in which to tell in what rrom the charcter is in so when it changes it will know
 let currentRoom = "startHallway";
 
+//will hold all of the drawing of the hallways. so its easy to add any in the process.
 let rooms = {};
 
 //to help move the charcter between images 
@@ -148,19 +151,8 @@ function preload() {
 
     gameBackdrop.image = loadImage("assets/images/Paper_Backdrop.png");
 
-    //long Hallways images 
-
-
     hallways.startHallway.image = loadImage("assets/images/Hallway.png");
     hallways.secondHallway.image = loadImage("assets/images/Second_Hallway.png");
-
-
-    // longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
-    // longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
-    // longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
-
-    // firstHallway.image = loadImage("assets/images/Hallway.png");
-    // secondHallway.image = loadImage("assets/images/Second_Hallway.png");
 
     //charcter images
     character.imageFront = loadImage("assets/images/Character_Front.png");
@@ -174,6 +166,14 @@ function preload() {
     character.back.imageMiddle = loadImage("assets/images/Character_Back_Middle.png");
     character.back.imageLeftLeg = loadImage("assets/images/Character_Back_Left.png");
 
+
+    // longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
+    // longHallway.leftWall.image = loadImage("assets/images/Long_Hallway_Left_Wall.png");
+    // longHallway.rightWall.image = loadImage("assets/images/Long_Hallway_Right_Wall.png");
+
+    // firstHallway.image = loadImage("assets/images/Hallway.png");
+    // secondHallway.image = loadImage("assets/images/Second_Hallway.png");
+
 }
 
 function setup() {
@@ -182,15 +182,6 @@ function setup() {
 
     hallways.startHallway.image.resize(200, 650);
     hallways.secondHallway.image.resize(600, 650);
-
-
-    // //resize long Hallway
-    // longHallway.floor.image.resize(150, 650);
-    // longHallway.leftWall.image.resize(25, 650);
-    // longHallway.rightWall.image.resize(25, 650);
-
-    // firstHallway.image.resize(200, 650);
-    // //secondHallway.image.resize(500, 650);
 
     //resize the images to fit better the game
     character.imageFront.resize(70, 75);
@@ -204,6 +195,15 @@ function setup() {
     character.back.imageMiddle.resize(70, 75);
     character.back.imageLeftLeg.resize(70, 75);
 
+    // //resize long Hallway
+    // longHallway.floor.image.resize(150, 650);
+    // longHallway.leftWall.image.resize(25, 650);
+    // longHallway.rightWall.image.resize(25, 650);
+
+    // firstHallway.image.resize(200, 650);
+    // //secondHallway.image.resize(500, 650);
+
+    //this is where we draw the hallways/rooms 
     rooms = {
 
         startHallway: {
@@ -211,7 +211,9 @@ function setup() {
                 push();
                 imageMode(CORNER);
                 image(hallways.startHallway.image, 400, 0);
+                //image(table.....) //can add furniture and it will only appear in this room.
                 pop();
+                //can do the same for effect we can add them here or specifically mention the currentRoom state
             },
         },
 
@@ -231,21 +233,22 @@ function draw() {
 
     background(gameBackdrop.image);
 
+    //this is what draws the room. it will check which room the character 
+    // is in and see if it passes the exit point it will draw the new room. therefore easily changing it. 
+    //this is check in the room transition with if statements. 
     if (rooms[currentRoom]) {
         rooms[currentRoom].draw();
     };
 
-    // drawLongHallway();
-    // drawFirstHallway();
-
     moveCharacter();
     blockWallCharacter();
-
 
     drawCharacter();
 
     checkRoomTransition();
 
+    // drawLongHallway();
+    // drawFirstHallway();
 }
 
 function checkRoomTransition() {
@@ -284,11 +287,6 @@ function blockWallCharacter() {
 
 //makes the character walk
 function moveCharacter() {
-    //  console.log(keyIsDown)
-
-    // if (!isMoving === false) {
-    //     characterWalk.imageFront = characterWalk.imageFront;
-    // }
     isMoving = false;
 
     if (keyIsDown(UP_ARROW)) {
