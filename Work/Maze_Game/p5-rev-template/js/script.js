@@ -388,13 +388,6 @@ function moveCharacter() {
 }
 
 function drawCharacter() {
-
-    console.log("Current Character Image:", character.imageFront);
-
-    if (!character.imageFront) {
-        console.error("Character image is undefined!");
-        return;  // Stop drawing if no image is set
-    }
     push();
     // rectMode(CENTER);
     imageMode(CENTER);
