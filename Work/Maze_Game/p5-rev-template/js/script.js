@@ -419,18 +419,3 @@ function drawCharacter() {
     pop();
 }
 
-
-
-
-/**
-* Returns true if a and b overlap, and false otherwise
-* Assumes a and b have properties x, y, width and height to describe
-* their rectangles, and that a and b are displayed centred on their
-* x,y coordinates.*/
-function centredRectanglesOverlap(a, b) {
-    return (a.x + a.height / 2 > b.x - b.width / 2 &&
-        a.x - a.height / 2 < b.x + b.width / 2 &&
-        a.y + a.height / 2 > b.y - b.height / 2 &&
-        a.y - a.height / 2 < b.y + b.height / 2);
-}
-
