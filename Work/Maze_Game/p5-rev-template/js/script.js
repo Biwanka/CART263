@@ -114,7 +114,7 @@ let hallways = {
     secondHallway: {
         image: undefined,
         verticalWall: {
-            left: 400 + 50,
+            left: 350 + 50,
             right: 600 - 50,
             top: undefined,
             bottom: undefined,
