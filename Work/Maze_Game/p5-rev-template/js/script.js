@@ -81,10 +81,12 @@ const character = {
     },
     rightSide: {
         imageRightLeg: undefined,
+        imageMiddle: undefined,
         imageLeftLeg: undefined,
     },
     leftSide: {
         imageRightLeg: undefined,
+        imageMiddle: undefined,
         imageLeftLeg: undefined,
     },
 }
@@ -94,26 +96,41 @@ let hallways = {
 
     startHallway: {
         image: undefined,
-        wall: {
+        verticalWall: {
             left: 400 + 50,
             right: 600 - 50,
         },
-
         top: {
             y: 0,
         },
 
         bottom: {
             y: 650,
-        },
+        }
+
     },
+
 
     secondHallway: {
         image: undefined,
-        wall: {
+        verticalWall: {
             left: 400 + 50,
             right: 600 - 50,
+            top: undefined,
+            bottom: undefined,
         },
+
+        secondVerticalWall: {
+            left: undefined,
+            right: undefined,
+            top: undefined,
+
+        },
+        horizontalWall: {
+            top: 0,
+            bottom: 650,
+        },
+
         top: {
             y: 0,
         },
@@ -152,7 +169,7 @@ function preload() {
     gameBackdrop.image = loadImage("assets/images/Paper_Backdrop.png");
 
     hallways.startHallway.image = loadImage("assets/images/Hallway.png");
-    hallways.secondHallway.image = loadImage("assets/images/Second_Hallway.png");
+    hallways.secondHallway.image = loadImage("assets/images/Second_Hallway_Full.png");
 
     //charcter images
     character.imageFront = loadImage("assets/images/Character_Front.png");
@@ -165,6 +182,14 @@ function preload() {
     character.back.imageRightLeg = loadImage("assets/images/Character_Back_Right.png");
     character.back.imageMiddle = loadImage("assets/images/Character_Back_Middle.png");
     character.back.imageLeftLeg = loadImage("assets/images/Character_Back_Left.png");
+
+    character.rightSide.imageRightLeg = loadImage("assets/images/Character_Right_Side_Right_Leg.png");
+    character.rightSide.imageMiddle = loadImage("assets/images/Character_Right_Side_Middle.png");
+    character.rightSide.imageLeftLeg = loadImage("assets/images/Character_Right_Side_Left_Leg.png");
+
+    character.leftSide.imageRightLeg = loadImage("assets/images/Character_Left_Side_Right_Leg.png");
+    character.leftSide.imageMiddle = loadImage("assets/images/Character_Left_Side_Middle.png");
+    character.leftSide.imageLeftLeg = loadImage("assets/images/Character_Left_Side_Left_Leg.png");
 
 
     // longHallway.floor.image = loadImage("assets/images/Long_Hallway_Floor.png");
@@ -194,6 +219,14 @@ function setup() {
     character.back.imageRightLeg.resize(70, 75);
     character.back.imageMiddle.resize(70, 75);
     character.back.imageLeftLeg.resize(70, 75);
+
+    character.rightSide.imageRightLeg.resize(55, 70);
+    character.rightSide.imageMiddle.resize(55, 70);
+    character.rightSide.imageLeftLeg.resize(55, 70);
+
+    character.leftSide.imageRightLeg.resize(55, 70);
+    character.leftSide.imageMiddle.resize(55, 70);
+    character.leftSide.imageLeftLeg.resize(55, 70);
 
     // //resize long Hallway
     // longHallway.floor.image.resize(150, 650);
@@ -283,7 +316,7 @@ function blockWallCharacter() {
 
     // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
 
-    character.x = constrain(character.x, currentHallway.wall.left, currentHallway.wall.right);
+    character.x = constrain(character.x, currentHallway.verticalWall.left, currentHallway.verticalWall.right);
 
 }
 
@@ -335,45 +368,45 @@ function moveCharacter() {
         }
     }
 
-    if (keyIsDown(LEFT_ARROW)) {
+    if (keyIsDown(RIGHT_ARROW)) {
         isMoving = true;
 
         //the character moves left
-        character.x = character.x - character.walk.x;
+        character.x = character.x + character.walk.x;
 
         if (frameCount % 10 === 0) {
             if (legPosition === 0) {
-                character.imageFront = character.back.imageRightLeg;
+                character.imageFront = character.rightSide.imageRightLeg;
                 legPosition = 1;
             }
             else if (legPosition === 1) {
-                character.imageFront = character.back.imageMiddle;
+                character.imageFront = character.rightSide.imageMiddle;
                 legPosition = 2;
             }
             else if (legPosition === 2) {
-                character.imageFront = character.back.imageLeftLeg;
+                character.imageFront = character.rightSide.imageLeftLeg;
                 legPosition = 0;
             }
         }
     }
 
-    if (keyIsDown(RIGHT_ARROW)) {
+    if (keyIsDown(LEFT_ARROW)) {
         isMoving = true;
 
         //the character moves right
-        character.x = character.x + character.walk.x;
+        character.x = character.x - character.walk.x;
 
         if (frameCount % 10 === 0) {
             if (legPosition === 0) {
-                character.imageFront = character.back.imageRightLeg;
+                character.imageFront = character.leftSide.imageRightLeg;
                 legPosition = 1;
             }
             else if (legPosition === 1) {
-                character.imageFront = character.back.imageMiddle;
+                character.imageFront = character.leftSide.imageMiddle;
                 legPosition = 2;
             }
             else if (legPosition === 2) {
-                character.imageFront = character.back.imageLeftLeg;
+                character.imageFront = character.leftSide.imageLeftLeg;
                 legPosition = 0;
             }
         }
