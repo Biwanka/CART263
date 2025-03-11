@@ -203,6 +203,7 @@ function preload() {
 
 function setup() {
     console.log("go")
+
     createCanvas(1000, 650);
 
     hallways.startHallway.image.resize(200, 650);
@@ -263,7 +264,8 @@ function setup() {
 }
 
 function draw() {
-
+    console.log(mouseX);
+    console.log(mouseY);
     // this is the paper texture in the background
     background(gameBackdrop.image);
 
@@ -317,6 +319,7 @@ function blockWallCharacter() {
     // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
 
     character.x = constrain(character.x, currentHallway.verticalWall.left, currentHallway.verticalWall.right);
+    //character.x = constrain(character.x, currentHallway.verticalSecondWall.left, currentHallway.secondVerticalWall.right);
 
 }
 
