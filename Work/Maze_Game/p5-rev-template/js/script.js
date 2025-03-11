@@ -51,14 +51,7 @@ const firstHallway = {
 }
 */
 
-// const smallCharacter = {
-//     //the standard start of the charcter
-//     x: 100,
-//     y: 100,
-//     width: 45,
-//     height: 55,
-//     imageFront: undefined,
-// }
+
 /**
  * Draws the character and has the different images to make it walk
  */
@@ -161,7 +154,6 @@ function preload() {
     hallways.startHallway.image = loadImage("assets/images/Hallway.png");
     hallways.secondHallway.image = loadImage("assets/images/Second_Hallway.png");
 
-    smallCharacter.imageFront = loadImage("assets/images/smaller.png");
     //charcter images
     character.imageFront = loadImage("assets/images/Character_Front.png");
     character.imageBack = loadImage("assets/images/Character_Back.png");
@@ -191,7 +183,6 @@ function setup() {
     hallways.startHallway.image.resize(200, 650);
     hallways.secondHallway.image.resize(650, 650);
 
-    // smallCharacter.imageFront.resize(70, 75);
     //resize the images to fit better the game
     character.imageFront.resize(70, 75);
     character.imageBack.resize(70, 75);
@@ -254,7 +245,7 @@ function draw() {
     blockWallCharacter();
 
     drawCharacter();
-    // drawSmallCharacter();
+
 
     checkRoomTransition();
 
@@ -406,15 +397,7 @@ function drawCharacter() {
     pop();
 }
 
-// function drawSmallCharacter() {
-//     push();
-//     // rectMode(CENTER);
-//     imageMode(CENTER);
-//     noFill();
-//     //  rect(character.x, character.y, character.width, character.height);
-//     image(smallCharacter.imageFront, smallCharacter.x, smallCharacter.y);
-//     pop();
-// }
+
 // function drawFirstHallway() {
 
 //     push();
