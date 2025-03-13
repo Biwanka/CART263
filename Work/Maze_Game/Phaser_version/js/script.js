@@ -1,21 +1,54 @@
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
+import Phaser from 'phaser';
+import GameScene from './GameScene.js';
 
-var game = new Phaser.Game(config);
 
-function preload() {
+try {
+
+    const config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        //parent: 'phaser-example',
+        physics: {
+            default: 'arcade',
+            arcade: { debug: true }
+        },
+        // scene: {
+        //     preload: preload,
+        //     create: create,
+        //     update: update
+        // }
+
+        scene: [GameScene]
+    };
+
+
+    const game = new Phaser.Game(config);
+} catch (error) {
+    console.error(error);
 }
 
-function create() {
-}
+// let character;
+// let room;
 
-function update() {
-}
+// function preload() {
+
+//     //this.load.image('background', 'room1.png'); // load room background
+//     this.load.image('room1', 'assets/images/room1.png');
+//     this.load.image('room2', 'assets/images/room2.png');
+//     this.load.spritesheet('character', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
+
+// }
+
+// function create() {
+
+//     // this.add.image(400, 300, 'background'); // ADD background image
+//     // character = this.physics.add.sprite(100, 100, 'character'); // create character with physics
+//     room = new Room(this, 'room1'); //load first room
+//     character = new Character(this, 100, 100);
+// }
+
+// function update() {
+//     character.handleInput();
+//     //characterMovement(); //handle character movement in phaser
+// }
