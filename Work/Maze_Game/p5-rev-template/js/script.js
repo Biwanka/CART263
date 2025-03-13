@@ -115,19 +115,19 @@ let hallways = {
         image: undefined,
         verticalWall: {
             left: 350 + 50,
-            right: 600 - 50,
+            right: 500 - 50,
             top: undefined,
             bottom: undefined,
         },
 
         secondVerticalWall: {
-            left: undefined,
-            right: undefined,
+            left: 950,
+            right: 1000,
             top: undefined,
 
         },
         horizontalWall: {
-            top: 0,
+            top: 600,
             bottom: 650,
         },
 
@@ -319,7 +319,8 @@ function blockWallCharacter() {
     // character.x = constrain(character.x, longHallway.floor.block.min, longHallway.floor.block.max);
 
     character.x = constrain(character.x, currentHallway.verticalWall.left, currentHallway.verticalWall.right);
-    //character.x = constrain(character.x, currentHallway.verticalSecondWall.left, currentHallway.secondVerticalWall.right);
+    // character.x = constrain(character.x, currentHallway.secondVerticalWall.left, currentHallway.secondVerticalWall.right);
+    // character.y = constrain(character.y, currentHallway.horizontalWall.left, currentHallway.HorizontalWall.right);
 
 }
 
