@@ -18,9 +18,22 @@ class GameScene extends Phaser.Scene {
         //this.load.image('background', 'room1.png'); // load room background
         this.load.image('room1', 'assets/images/room1.png');
         this.load.image('room2', 'assets/images/room2.png');
-        this.load.spritesheet('character', 'assets/images/character.png', { frameWidth: 32, frameHeight: 32 });
-        //this.load.image('character', 'https://labs.phaser.io/assets/sprites/phaser-dude.png');
-        console.log("Character image loaded:", this.textures.exists('character'));
+
+        this.load.image('character_front_left', 'assets/images/character_front_left.png');
+        this.load.image('character_front_middle', 'assets/images/character_front_middle.png');
+        this.load.image('character_front_right', 'assets/images/character_front_right.png');
+
+        this.load.image('character_back_left', 'assets/images/character_back_left.png');
+        this.load.image('character_back_middle', 'assets/images/character_back_middle.png');
+        this.load.image('character_back_left', 'assets/images/character_back_right.png');
+
+        this.load.image('character_left_side_left', 'assets/images/character_left_side_left.png');
+        this.load.image('character_left_side_middle', 'assets/images/character_left_side_middle.png');
+        this.load.image('character_left_side_right', 'assets/images/character_left_side_right.png');
+
+        this.load.image('character_right_side_left', 'assets/images/character_right_side_left.png');
+        this.load.image('character_right_side_middle', 'assets/images/character_right_side_middle.png');
+        this.load.image('character_right_side_right', 'assets/images/character_right_side_right.png');
     }
 
     create() {
