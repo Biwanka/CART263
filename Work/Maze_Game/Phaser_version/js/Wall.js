@@ -1,14 +1,20 @@
-class Wall extends Phaser.GameObjects.Sprite { // class Wall extends Phaser.Physics.Arcade.Sprite
-    constructor(scene, x, y) {
+class Wall extends Phaser.Physics.Arcade.Sprite { // class Wall extends Phaser.Physics.Arcade.Sprite
+    constructor(scene, x, y, width, height) {
         super(scene, x, y, 'wall');
 
-    }
-
-    update(time, delta) {
-        scene.physics.add.existing(this, true);
+        this.scene = scene;
+        this.scene.physics.add.existing(this, true)
         this.setSize(width, height);
-        scene.add.existing(this);
+        this.scene.add.existing(this);
 
+        this.setAlpha(0); //makes the wall invisible
     }
 }
 export default Wall;
+
+// update(time, delta) {
+
+
+
+
+// }

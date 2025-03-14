@@ -1,32 +1,19 @@
-import Phaser from 'phaser';
+//import Phaser from '../libraries/phaser.js';
 import GameScene from './GameScene.js';
 
 
-try {
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        // arcade: { debug: true }
+    },
+    scene: [GameScene]
+};
 
-    const config = {
-        type: Phaser.AUTO,
-        width: 800,
-        height: 600,
-        //parent: 'phaser-example',
-        physics: {
-            default: 'arcade',
-            arcade: { debug: true }
-        },
-        // scene: {
-        //     preload: preload,
-        //     create: create,
-        //     update: update
-        // }
-
-        scene: [GameScene]
-    };
-
-
-    const game = new Phaser.Game(config);
-} catch (error) {
-    console.error(error);
-}
+const game = new Phaser.Game(config);
 
 // let character;
 // let room;

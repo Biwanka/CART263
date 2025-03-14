@@ -13,35 +13,28 @@
     <!-- Library script(s) -->
 
 
-    <script src="js/libraries/phaser.esm.js"></script>
-    <script src="js/libraries/phaser.esm.min.js"></script>
+    <!-- <script src="js/libraries/phaser.esm.js"></script>
+    <script src="js/libraries/phaser.esm.min.js"></script> -->
     <script src="js/libraries/phaser.js"></script>
-    <script src="js/libraries/phaser.min.js"></script>
-    <script src="js/libraries/phaser-arcade-physics.js"></script>
+    <!-- <script src="js/libraries/phaser.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+
+    <!-- <script src="js/libraries/phaser-arcade-physics.js"></script>
     <script src="js/libraries/phaser-arcade-physics.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script> -->
 
     <!-- My script(s) -->
-    <script src="js/script.js"></script>
-    <script src="js/GameScene.js"></script>
-    <script src="js/Room.js"></script>
-    <script src="js/Character.js"></script>
-    <script src="js/Wall.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/GameScene.js"></script>
+    <script type="module" src="js/Room.js"></script>
+    <script type="module" src="js/Character.js"></script>
+    <script type="module" src="js/Wall.js"></script>
 </head>
 
 <body>
     <!-- HTML would go here if needed. -->
 </body>
 
-<script>
-    app.use(express.static('public', {
-        setHeaders: (res, path) => {
-            if (path.endsWith('.js')) {
-                res.setHeader('Content-Type', 'application/javascript');
-            }
-        }
-    }));
-</script>
 
 </html>
