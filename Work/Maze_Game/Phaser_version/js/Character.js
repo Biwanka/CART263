@@ -43,7 +43,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
             this.play('walk_right', true);
         }
 
-        if (this.keys.up.isDown) {
+        else if (this.keys.up.isDown) {
             this.setVelocityY(-this.speed);
             this.play('walk_up', true);
         }

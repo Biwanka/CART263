@@ -13,7 +13,7 @@ class Room extends Phaser.GameObjects.Container {
         this.background = this.scene.add.image(400, 300, roomKey);
         this.walls = this.scene.physics.add.staticGroup();
         this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
-
+        //  this.walls.add(new Wall(this, 100, 200, 50, 200));
         this.createWalls();
 
 
@@ -31,6 +31,9 @@ class Room extends Phaser.GameObjects.Container {
     }
 
     checkTransition(character) {
+        this.scene.character.setVisible(true);  // Ensure it's visible
+        this.scene.character.setActive(true);   // Ensure it's active
+        this.scene.add.existing(this.scene.character); // Re-add if needed
 
         if (this.roomKey === 'room1' && character.y <= 50) {
             this.scene.currentRoom = new Room(this.scene, 'room2');

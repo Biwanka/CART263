@@ -25,7 +25,7 @@ class GameScene extends Phaser.Scene {
 
         this.load.image('character_back_left', 'assets/images/character_back_left.png');
         this.load.image('character_back_middle', 'assets/images/character_back_middle.png');
-        this.load.image('character_back_left', 'assets/images/character_back_right.png');
+        this.load.image('character_back_right', 'assets/images/character_back_right.png');
 
         this.load.image('character_left_side_left', 'assets/images/character_left_side_left.png');
         this.load.image('character_left_side_middle', 'assets/images/character_left_side_middle.png');
@@ -48,6 +48,7 @@ class GameScene extends Phaser.Scene {
 
         // FIX: Use `this.character` directly (no `.sprite`)
         this.physics.add.collider(this.character, this.currentRoom.walls);
+        // this.scene.physics.world.createDebugGraphic();
         this.anims.create({
             key: 'walk_down',
             frames: [
