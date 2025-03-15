@@ -7,7 +7,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
 
-        this.setScale(0.2);
+        this.setScale(0.18);
         // // Add animations
         // this.scene.anims.create({
         //     key: 'walk',

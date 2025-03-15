@@ -31,9 +31,6 @@ class Room extends Phaser.GameObjects.Container {
     }
 
     checkTransition(character) {
-        this.scene.character.setVisible(true);  // Ensure it's visible
-        this.scene.character.setActive(true);   // Ensure it's active
-        this.scene.add.existing(this.scene.character); // Re-add if needed
 
         if (this.roomKey === 'room1' && character.y <= 50) {
             this.scene.currentRoom = new Room(this.scene, 'room2');
@@ -44,6 +41,10 @@ class Room extends Phaser.GameObjects.Container {
             this.scene.currentRoom = new Room(this.scene, 'room1');
             character.y = 50;
         }
+
+        this.scene.character.setVisible(true);  // Ensure it's visible
+        this.scene.character.setActive(true);   // Ensure it's active
+        this.scene.add.existing(this.scene.character); // Re-add if needed
     }
 }
 export default Room;

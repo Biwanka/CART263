@@ -95,13 +95,14 @@ class GameScene extends Phaser.Scene {
 
     }
 
-    update(time, delta) {
+    update() {
         // character.handleInput();
         //characterMovement(); //handle character movement in phaser
-        this.character.update(time, delta);
+
         this.currentRoom.checkTransition(this.character);
         // this.room.update(time, delta);
-        // this.wall.update(time, delta);
+        // this.wall.update(time, delta);   
+        this.character.update();
     }
 }
 export default GameScene;

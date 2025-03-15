@@ -11,7 +11,7 @@ class Wall extends Phaser.Physics.Arcade.Sprite { // class Wall extends Phaser.P
         this.setDisplaySize(width, height); // Resize the sprite
         this.body.setSize(width, height); // Force the collider to match
         this.body.setOffset(-width / 2, -height / 2);
-        this.body.setSize(width * 0.9, height * 0.9); // Reduce size slightly
+        // this.body.setSize(width * 0.9, height * 0.9); // Reduce size slightly
         // this.body.setOffset(0, 0); // Align the body properly
 
 
