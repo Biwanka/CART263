@@ -11,59 +11,53 @@ class Room extends Phaser.GameObjects.Container {
 
         //add room background
         this.background = this.scene.add.image(400, 300, roomKey);
-
         this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
+
+
         //  this.walls.add(new Wall(this, 100, 200, 50, 200));  
-        this.walls = this.scene.physics.add.staticGroup();
+        this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.createWalls();
 
+
+        // let wall = this.walls.create(x, y, 'wallTexture');
+        // wall.setScale(1).refreshBody(); // Refresh collision bounds
 
     }
 
     createWalls() {
+        this.walls.clear(true, true);
 
         if (this.roomKey === 'room1') {
             this.walls.add(new Wall(this.scene, 318, 300, 30, 600));
             this.walls.add(new Wall(this.scene, 454, 300, 30, 600));
-        }
-
-        else if (this.roomKey === 'room2') {
+        } else if (this.roomKey === 'room2') {
             this.walls.add(new Wall(this.scene, 500, 300, 400, 20));
         }
     }
 
     checkTransition(character) {
-
-        this.scene.character.setVisible(true);  // Ensure it's visible
-        this.scene.character.setActive(true);   // Ensure it's active
-        this.scene.add.existing(this.scene.character); // Re-add if needed
-
-        if (this.roomKey === 'room1' && character.y <= 50) {
-            this.scene.currentRoom = new Room(this.scene, 'room2');
-            character.y = 550;
+        if (this.roomKey === 'room1' && character.y <= 40) {
+            this.changeRoom(character, 'room2', 590);
+        } else if (this.roomKey === 'room2' && character.y >= 590) {
+            this.changeRoom(character, 'room1', 40);
         }
+    }
 
-        else if (this.roomKey === 'room2' && character.y >= 550) {
-            this.scene.currentRoom = new Room(this.scene, 'room1');
-            character.y = 50;
-        }
+    changeRoom(character, newRoomKey, newY) {
+        console.log(`Transitioning to ${newRoomKey}...`);
 
+        //  Keep the character and only change background & walls
+        this.background.setTexture(newRoomKey);
+        this.roomKey = newRoomKey;
 
+        this.walls.getChildren().forEach(wall => wall.destroy());
+        this.createWalls();
+
+        character.y = newY;
+
+        //  Re-add collision so character interacts with new walls
+        this.scene.physics.add.collider(character, this.walls);
     }
 }
+
 export default Room;
-
-// update(time, delta) {
-//     if (roomKey === 'room1') {
-//         this.walls.add(new Wall(scene, 200, 300, 400, 20));
-
-//     }
-
-//     else if (roomKey === 'room2') {
-//         this.walls.add(new Wall(scene, 500, 300, 400, 20));
-//     }
-
-//     this.scene.physics.add.collider(character.sprite, this.walls);
-
-
-// }
