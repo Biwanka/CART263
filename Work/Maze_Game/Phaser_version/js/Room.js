@@ -13,15 +13,8 @@ class Room extends Phaser.GameObjects.Container {
         this.background = this.scene.add.image(400, 300, roomKey);
         this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
 
-
-        //  this.walls.add(new Wall(this, 100, 200, 50, 200));  
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.createWalls();
-
-
-        // let wall = this.walls.create(x, y, 'wallTexture');
-        // wall.setScale(1).refreshBody(); // Refresh collision bounds
-
     }
 
     createWalls() {
