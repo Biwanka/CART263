@@ -1,6 +1,7 @@
 //import Phaser from '../libraries/phaser.js';
-import Character from './Character.js';
 import Room from './Room.js';
+import Character from './Character.js';
+
 //import Wall from './Wall.js';
 
 
