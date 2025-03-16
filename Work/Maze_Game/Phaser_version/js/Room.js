@@ -28,10 +28,10 @@ class Room extends Phaser.GameObjects.Container {
         this.walls.clear(true, true);
 
         if (this.roomKey === 'room1') {
-            this.walls.add(new Wall(this.scene, 318, 300, 30, 600));
-            this.walls.add(new Wall(this.scene, 454, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 318, 300, 30, 600)); // this is the left wall
+            this.walls.add(new Wall(this.scene, 454, 300, 30, 600)); //this is the right wall
         } else if (this.roomKey === 'room2') {
-            this.walls.add(new Wall(this.scene, 500, 300, 400, 20));
+            this.walls.add(new Wall(this.scene, 290, 300, 30, 600));
         }
     }
 
