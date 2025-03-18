@@ -26,11 +26,11 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 454, 300, 30, 600)); //this is the right wall
         } else if (this.roomKey === 'room2') {
             this.walls.add(new Wall(this.scene, 290, 300, 30, 600));
-            this.walls.add(new Wall(this.scene, 790, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 775, 300, 30, 600));
             this.walls.add(new Wall(this.scene, 590, 580, 340, 30)); // this dosent block the character at all as it passes to the other room before comming in contact witht the wall.
 
             // need to change because the character drawing still goes over the walls
-            this.walls.add(new Wall(this.scene, 530, 300, 335, 454));
+            this.walls.add(new Wall(this.scene, 530, 300, 335, 450));
 
         }
 
@@ -57,6 +57,11 @@ class Room extends Phaser.GameObjects.Container {
             //     this.changeRoom(character, 'room1', 380, 40);
             // }
         }
+
+        //checck to make a rectangle and that on collision, the charcter move to a new room, instea dof the y or x as then the character will
+        //not spawn over walls. so make a rectangle in the doorways !!!!!!
+
+        /// its overlap()
         else if (this.roomKey === 'room2') {
 
             if (character.y >= 590) {
