@@ -15,6 +15,7 @@ class Room extends Phaser.GameObjects.Container {
 
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.createWalls();
+
     }
 
     createWalls() {
@@ -25,13 +26,19 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 454, 300, 30, 600)); //this is the right wall
         } else if (this.roomKey === 'room2') {
             this.walls.add(new Wall(this.scene, 290, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 790, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 590, 580, 340, 30)); // this dosent block the character at all as it passes to the other room before comming in contact witht the wall.
+
+            // need to change because the character drawing still goes over the walls
+            this.walls.add(new Wall(this.scene, 530, 300, 335, 450));
+
         }
     }
 
     checkTransition(character) {
-        if (this.roomKey === 'room1' && character.y <= 40) {
-            this.changeRoom(character, 'room2', 590);
-        } else if (this.roomKey === 'room2' && character.y >= 590) {
+        if (this.roomKey === 'room1' && character.y < 40) {
+            this.changeRoom(character, 'room2', 590); // eed to change the number because the character dosent get blocked by the wall and swithces rooms.
+        } else if (this.roomKey === 'room2' && character.y > 590) {
             this.changeRoom(character, 'room1', 40);
         }
     }
