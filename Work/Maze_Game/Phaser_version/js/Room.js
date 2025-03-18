@@ -33,17 +33,58 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 530, 300, 335, 450));
 
         }
+
+        else if (this.roomkey === 'room3') {
+            this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
+        }
+        else if (this.roomkey === 'room4') {
+            this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
+        }
+        else if (this.roomkey === 'room5') {
+            this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
+        }
+        else if (this.roomkey === 'room6') {
+            this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
+        }
+
+
     }
 
     checkTransition(character) {
-        if (this.roomKey === 'room1' && character.y < 40) {
-            this.changeRoom(character, 'room2', 590); // eed to change the number because the character dosent get blocked by the wall and swithces rooms.
-        } else if (this.roomKey === 'room2' && character.y > 590) {
-            this.changeRoom(character, 'room1', 40);
+        if (this.roomKey === 'room1' && character.y <= 40) {
+            this.changeRoom(character, 'room2', 350, 590); // eed to change the number because the character dosent get blocked by the wall and swithces rooms.
+            // } else if (this.roomKey === 'room2' && character.y > 590) {
+            //     this.changeRoom(character, 'room1', 380, 40);
+            // }
+        }
+        else if (this.roomKey === 'room2') {
+
+            if (character.y >= 590) {
+                this.changeRoom(character, 'room1', 380, 40);
+            }
+            else if (character.y <= 40) {
+                this.changeRoom(character, 'room3', 380, 590);
+            }
+        }
+
+        else if (this.roomKey === 'room3') {
+            if (character.y >= 590) {
+                this.changeRoom(character, 'room2', 380, 40);
+            }
+            else if (character.x <= 40) {
+                this.changeRoom(character, 'room4', 570, 300);
+            }
+
+        }
+
+        else if (this.roomKey === 'room4') {
+            if (character.x >= 570) {
+                this.changeRoom(character, 'room3', 40, 300);
+            }
         }
     }
 
-    changeRoom(character, newRoomKey, newY) {
+    changeRoom(character, newRoomKey, newX, newY) {
         console.log(`Transitioning to ${newRoomKey}...`);
 
         //  Keep the character and only change background & walls
@@ -54,6 +95,7 @@ class Room extends Phaser.GameObjects.Container {
         this.createWalls();
 
         character.y = newY;
+        character.x = newX;
 
         //  Re-add collision so character interacts with new walls
         this.scene.physics.add.collider(character, this.walls);
