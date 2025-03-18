@@ -30,7 +30,7 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 590, 580, 340, 30)); // this dosent block the character at all as it passes to the other room before comming in contact witht the wall.
 
             // need to change because the character drawing still goes over the walls
-            this.walls.add(new Wall(this.scene, 530, 300, 335, 450));
+            this.walls.add(new Wall(this.scene, 530, 300, 335, 454));
 
         }
 
