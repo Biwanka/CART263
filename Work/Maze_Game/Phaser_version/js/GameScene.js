@@ -38,20 +38,11 @@ class GameScene extends Phaser.Scene {
         this.character = new Character(this, 400, 300);
         this.add.existing(this.character);
 
-        // this.doorway = new Doorway(this, 200, 200, 50, 10); // Example
-
-        //  Ensure collision is set up once in create(), not in update()
         this.physics.add.collider(this.character, this.currentRoom.walls);
-        // this.physics.add.overlap(this.character, this.doorways, this.enterDoorway, null, this);
         this.physics.add.overlap(this.character, this.currentRoom.doorways, this.onOverlap, null, this);
 
         this.createAnimations();
-
     }
-
-    // onOverlap(character, doorway) {
-    //     this.currentRoom.onOverlap(character, doorway);
-    // }
 
     createAnimations() {
 

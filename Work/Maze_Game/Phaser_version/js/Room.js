@@ -19,7 +19,6 @@ class Room extends Phaser.GameObjects.Container {
 
         this.doorways = this.scene.physics.add.staticGroup()
         this.createDoorways();
-
     }
 
     createWalls() {
@@ -34,7 +33,7 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 775, 300, 30, 600));// right wall
             this.walls.add(new Wall(this.scene, 600, 600, 310, 50)); // bottom doorway wall
             this.walls.add(new Wall(this.scene, 530, 285, 320, 405)); //middle square wall
-            this.walls.add(new Wall(this.scene, 380, 10, 200, 15));
+            this.walls.add(new Wall(this.scene, 380, 10, 200, 15));// top left wall
         }
 
         else if (this.roomKey === 'room3') {
@@ -49,7 +48,6 @@ class Room extends Phaser.GameObjects.Container {
         else if (this.roomKey === 'room6') {
             this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
         }
-
     }
 
     createDoorways() {
@@ -105,9 +103,7 @@ class Room extends Phaser.GameObjects.Container {
 
         this.scene.physics.add.collider(character, this.walls);
     }
-
 }
-
 export default Room;
 
 
