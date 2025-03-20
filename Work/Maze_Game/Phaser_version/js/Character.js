@@ -8,10 +8,8 @@ class Character extends Phaser.Physics.Arcade.Sprite {
 
         this.setCollideWorldBounds(true);
         this.setOrigin(0.5, 1); // Places the origin at the bottom center
-        this.setSize(150, 175); // Adjust this to the actual character size
+        this.setSize(220, 200); // Adjust this to the actual character size
         this.setScale(0.18);
-        //  this.body.setSize(32, 48); // Adjust to fit your sprite
-        // this.body.setOffset(16, 16); // Centers the hitbox
 
         //Handle input keys
         this.keys = scene.input.keyboard.createCursorKeys();
@@ -27,40 +25,35 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         if (this.keys.left.isDown) {
             this.setVelocityX(-this.speed);
             this.play('walk_left', true);
+
+            this.body.setSize(130, 200); // Taller hitbox
         }
 
         else if (this.keys.right.isDown) {
             this.setVelocityX(this.speed);
             this.play('walk_right', true);
+
+            this.body.setSize(130, 200); // Taller hitbox
         }
 
         else if (this.keys.up.isDown) {
             this.setVelocityY(-this.speed);
             this.play('walk_up', true);
+
+            this.body.setSize(220, 200); // Taller hitbox
         }
 
         else if (this.keys.down.isDown) {
             this.setVelocityY(this.speed);
             this.play('walk_down', true);
+
+            this.body.setSize(220, 200); // Taller hitbox
+            //this.body.setOffset(100, 120);
         }
 
         else {
             this.stop(); // Stop animation when no key is pressed
         }
-
-
-        if (this.direction === "up") {
-            this.body.setSize(32, 48); // Taller hitbox
-            this.body.setOffset(16, 16);
-        } else if (this.direction === "down") {
-            this.body.setSize(32, 48);
-            this.body.setOffset(16, 16);
-        } else if (this.direction === "left" || this.direction === "right") {
-            this.body.setSize(32, 48);
-            this.body.setOffset(16, 16);
-        }
-
-        // this.body.setSize(30, 30);
     }
 }
 

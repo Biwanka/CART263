@@ -1,19 +1,19 @@
 class Doorway extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y, width, height) {
+    constructor(scene, x, y, width, height, targetRoom, targetX, targetY) {
         super(scene, x, y, width, height, 0xffffff, 0); // Transparent rectangle
-        scene.add.existing(this);
-        scene.physics.add.existing(this);
 
-        //  Correct way to add physics to a non-sprite object
-        scene.physics.world.enable(this);
+        this.scene = scene;
+        this.targetRoom = targetRoom; // Room to transition to
+        this.targetX = targetX; // X position after transition
+        this.targetY = targetY; // Y position after transition
 
-        // Make sure it's treated as a sensor (no collision, only triggers overlap)
-        this.body.setAllowGravity(false);
-        this.body.setImmovable(true);
-        this.body.setSize(width, height);
-        //this.doorways = this.physics.add.group();
+        // Add Doorway to the scene
+        this.scene.add.existing(this);
+        this.scene.physics.add.existing(this, true); // Static body to detect overlap
+
+        // Optional: Make it visible for debugging
+        this.setStrokeStyle(1, 0xff0000); // Red border
     }
-
 }
 
 export default Doorway;

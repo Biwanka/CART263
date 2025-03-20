@@ -28,103 +28,123 @@ class Room extends Phaser.GameObjects.Container {
         if (this.roomKey === 'room1') {
             this.walls.add(new Wall(this.scene, 318, 300, 30, 600)); // this is the left wall
             this.walls.add(new Wall(this.scene, 454, 300, 30, 600)); //this is the right wall
-        } else if (this.roomKey === 'room2') {
-            this.walls.add(new Wall(this.scene, 290, 300, 30, 600));
-            this.walls.add(new Wall(this.scene, 775, 300, 30, 600));
-            this.walls.add(new Wall(this.scene, 590, 580, 340, 30)); // this dosent block the character at all as it passes to the other room before comming in contact witht the wall.
-
-            // need to change because the character drawing still goes over the walls
-            this.walls.add(new Wall(this.scene, 530, 300, 335, 450));
-
+        }
+        else if (this.roomKey === 'room2') {
+            this.walls.add(new Wall(this.scene, 290, 300, 20, 600));//left wall
+            this.walls.add(new Wall(this.scene, 775, 300, 30, 600));// right wall
+            this.walls.add(new Wall(this.scene, 600, 600, 310, 50)); // bottom doorway wall
+            this.walls.add(new Wall(this.scene, 530, 285, 320, 405)); //middle square wall
+            this.walls.add(new Wall(this.scene, 380, 10, 200, 15));
         }
 
-        else if (this.roomkey === 'room3') {
+        else if (this.roomKey === 'room3') {
             this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
         }
-        else if (this.roomkey === 'room4') {
+        else if (this.roomKey === 'room4') {
             this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
         }
-        else if (this.roomkey === 'room5') {
+        else if (this.roomKey === 'room5') {
             this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
         }
-        else if (this.roomkey === 'room6') {
+        else if (this.roomKey === 'room6') {
             this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
         }
-
 
     }
 
     createDoorways() {
-
+        //this.doorways.clear(true, true);
         if (this.roomKey === 'room1') {
-            // new Doorway(this.scene, 330, 10, 50, 10, 'room2', 400, 500);
-            this.doorways.add(new Doorway(this, 200, 200, 50, 10));
-
+            this.doorways.add(new Doorway(this.scene, 385, 5, 100, 10, 'room2', 365, 599));
         }
 
-        else if (this.roomkey === 'room2') {
-            // new Doorway(this.scene, 400, 550, 100, 20, 'room1', 400, 50);
-            this.doorways.add(new Doorway(this, 500, 300, 50, 10));
-        }
-
-    }
-
-    checkTransition(character) {
-        if (this.roomKey === 'room1' && character.y <= 40) {
-            this.changeRoom(character, 'room2', 350, 590); // eed to change the number because the character dosent get blocked by the wall and swithces rooms.
-            // } else if (this.roomKey === 'room2' && character.y > 590) {
-            //     this.changeRoom(character, 'room1', 380, 40);
-            // }
-        }
-
-        //checck to make a rectangle and that on collision, the charcter move to a new room, instea dof the y or x as then the character will
-        //not spawn over walls. so make a rectangle in the doorways !!!!!!
-
-        /// its overlap()
         else if (this.roomKey === 'room2') {
-
-            if (character.y >= 590) {
-                this.changeRoom(character, 'room1', 380, 40);
-            }
-            else if (character.y <= 40) {
-                this.changeRoom(character, 'room3', 380, 590);
-            }
+            this.doorways.add(new Doorway(this.scene, 365, 600, 125, 10, 'room1', 400, 70));
+            this.doorways.add(new Doorway(this.scene, 520, 5, 100, 10, 'room3', 500, 595));
         }
 
         else if (this.roomKey === 'room3') {
-            if (character.y >= 590) {
-                this.changeRoom(character, 'room2', 380, 40);
-            }
-            else if (character.x <= 40) {
-                this.changeRoom(character, 'room4', 570, 300);
-            }
-
+            this.doorways.add(new Doorway(this.scene, 465, 600, 125, 10, 'room2', 500, 70));
+            this.doorways.add(new Doorway(this.scene, 10, 300, 10, 100, 'room4', 500, 595));
         }
 
         else if (this.roomKey === 'room4') {
-            if (character.x >= 570) {
-                this.changeRoom(character, 'room3', 40, 300);
-            }
+            this.doorways.add(new Doorway(this.scene, 365, 600, 125, 10, 'room3', 400, 70));
+            this.doorways.add(new Doorway(this.scene, 520, 5, 100, 10, 'room5', 500, 595));
+        }
+
+        else if (this.roomKey === 'room5') {
+            this.doorways.add(new Doorway(this.scene, 365, 600, 125, 10, 'room4', 400, 70));
+            this.doorways.add(new Doorway(this.scene, 520, 5, 100, 10, 'room6', 500, 595));
+        }
+
+        else if (this.roomKey === 'room6') {
+            this.doorways.add(new Doorway(this.scene, 365, 600, 125, 10, 'room5', 400, 70));
+            // this.doorways.add(new Doorway(this.scene, 520, 5, 100, 10, 'room7', 500, 595));
         }
     }
 
-    changeRoom(character, newRoomKey, newX, newY) {
-        console.log(`Transitioning to ${newRoomKey}...`);
+    checkTransition(character) {
+        this.scene.physics.world.overlap(character, this.doorways, this.onOverlap, null, this);
+    }
 
-        //  Keep the character and only change background & walls
-        this.background.setTexture(newRoomKey);
-        this.roomKey = newRoomKey;
+    onOverlap(character, doorway) {
+        console.log(`Transitioning to ${doorway.targetRoom}...`);
+
+        this.background.setTexture(doorway.targetRoom);
+        this.roomKey = doorway.targetRoom;
+
+        character.x = doorway.targetX;
+        character.y = doorway.targetY;
 
         this.walls.getChildren().forEach(wall => wall.destroy());
         this.createWalls();
 
-        character.y = newY;
-        character.x = newX;
+        this.doorways.getChildren().forEach(doorway => doorway.destroy());
+        this.createDoorways();
 
-        //  Re-add collision so character interacts with new walls
         this.scene.physics.add.collider(character, this.walls);
-        //this.scene.physics.add.overlap(scene.character, this, this.onOverlap, null, this);
     }
+
 }
 
 export default Room;
+
+
+// changeRoom(targetRoom, targetX, targetY) {
+//     if (this.currentRoom) {
+//         // Destroy the old room (if necessary)
+//         this.currentRoom.destroy();
+//     }
+
+//     // Remove old doorways before switching
+//     if (this.doorways) {
+//         this.doorways.clear(true, true);
+//     }
+
+//     // Load the new room
+//     this.currentRoom = new Room(this, targetRoom);
+//     this.player.setPosition(targetX, targetY);
+
+//     // Recreate doorways for the new room
+//     this.doorways = this.add.group(); // Create a new group for doorways
+//     this.currentRoom.createDoorways(this.doorways);
+// }
+
+// changeRoom(character, newRoomKey, newX, newY) {
+//     console.log(`Transitioning to ${newRoomKey}...`);
+
+//     //  Keep the character and only change background & walls
+//     this.background.setTexture(newRoomKey);
+//     this.roomKey = newRoomKey;
+
+//     this.walls.getChildren().forEach(wall => wall.destroy());
+//     this.createWalls();
+
+//     character.y = newY;
+//     character.x = newX;
+
+//     //  Re-add collision so character interacts with new walls
+//     this.scene.physics.add.collider(character, this.walls);
+//     //this.scene.physics.add.overlap(scene.character, this, this.onOverlap, null, this);
+// }
