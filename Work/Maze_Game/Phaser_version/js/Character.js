@@ -10,12 +10,15 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0.5, 1); // Places the origin at the bottom center
         this.setSize(150, 175); // Adjust this to the actual character size
         this.setScale(0.18);
+        //  this.body.setSize(32, 48); // Adjust to fit your sprite
+        // this.body.setOffset(16, 16); // Centers the hitbox
 
         //Handle input keys
         this.keys = scene.input.keyboard.createCursorKeys();
         this.speed = 150;
 
         console.log("Character created:", this.x, this.y);
+        console.log(this.position, this.x, this.y);
     }
 
     update() {
@@ -45,7 +48,19 @@ class Character extends Phaser.Physics.Arcade.Sprite {
             this.stop(); // Stop animation when no key is pressed
         }
 
-        this.body.setSize(30, 30);
+
+        if (this.direction === "up") {
+            this.body.setSize(32, 48); // Taller hitbox
+            this.body.setOffset(16, 16);
+        } else if (this.direction === "down") {
+            this.body.setSize(32, 48);
+            this.body.setOffset(16, 16);
+        } else if (this.direction === "left" || this.direction === "right") {
+            this.body.setSize(32, 48);
+            this.body.setOffset(16, 16);
+        }
+
+        // this.body.setSize(30, 30);
     }
 }
 

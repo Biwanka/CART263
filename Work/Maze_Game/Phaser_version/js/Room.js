@@ -1,4 +1,5 @@
 import Wall from './Wall.js';
+import Doorway from './Doorway.js';
 
 class Room extends Phaser.GameObjects.Container {
     constructor(scene, roomKey) {
@@ -15,6 +16,9 @@ class Room extends Phaser.GameObjects.Container {
 
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.createWalls();
+
+        this.doorways = this.scene.physics.add.staticGroup()
+        this.createDoorways();
 
     }
 
@@ -47,6 +51,21 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 300, 300, 50, 50));
         }
 
+
+    }
+
+    createDoorways() {
+
+        if (this.roomKey === 'room1') {
+            // new Doorway(this.scene, 330, 10, 50, 10, 'room2', 400, 500);
+            this.doorways.add(new Doorway(this, 200, 200, 50, 10));
+
+        }
+
+        else if (this.roomkey === 'room2') {
+            // new Doorway(this.scene, 400, 550, 100, 20, 'room1', 400, 50);
+            this.doorways.add(new Doorway(this, 500, 300, 50, 10));
+        }
 
     }
 
@@ -104,6 +123,7 @@ class Room extends Phaser.GameObjects.Container {
 
         //  Re-add collision so character interacts with new walls
         this.scene.physics.add.collider(character, this.walls);
+        //this.scene.physics.add.overlap(scene.character, this, this.onOverlap, null, this);
     }
 }
 
