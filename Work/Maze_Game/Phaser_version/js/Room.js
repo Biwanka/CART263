@@ -48,22 +48,68 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 400, 140, 800, 60));
         }
         else if (this.roomKey === 'room5') {
-            this.walls.add(new Wall(this.scene, 720, 500, 120, 200));
-            this.walls.add(new Wall(this.scene, 720, 150, 120, 200));
+            this.walls.add(new Wall(this.scene, 720, 490, 125, 200));
+            this.walls.add(new Wall(this.scene, 720, 150, 125, 200));
             this.walls.add(new Wall(this.scene, 400, 15, 600, 60));
             this.walls.add(new Wall(this.scene, 400, 575, 600, 60));
             this.walls.add(new Wall(this.scene, 400, 300, 350, 265));
-            this.walls.add(new Wall(this.scene, 80, 500, 120, 200));
-            this.walls.add(new Wall(this.scene, 80, 150, 120, 200));
+            this.walls.add(new Wall(this.scene, 80, 500, 125, 200));
+            this.walls.add(new Wall(this.scene, 80, 150, 125, 200));
         }
         else if (this.roomKey === 'room6') {
-            this.walls.add(new Wall(this.scene, 630, 120, 350, 350));
-            this.walls.add(new Wall(this.scene, 630, 600, 350, 350));
+            this.walls.add(new Wall(this.scene, 610, 120, 350, 355));
+            this.walls.add(new Wall(this.scene, 610, 618, 350, 355));
             this.walls.add(new Wall(this.scene, 100, 60, 160, 150));
             this.walls.add(new Wall(this.scene, 350, 60, 160, 150));
             this.walls.add(new Wall(this.scene, 300, 600, 600, 30));
-            this.walls.add(new Wall(this.scene, 15, 300, 20, 500));
-
+            this.walls.add(new Wall(this.scene, 15, 300, 20, 600));
+        }
+        else if (this.roomKey === 'room7') {
+            this.walls.add(new Wall(this.scene, 45, 440, 80, 400)); // this is the left wall
+            this.walls.add(new Wall(this.scene, 128, 50, 430, 180)); //this is the right wall
+            this.walls.add(new Wall(this.scene, 465, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 328, 440, 300, 400));
+        }
+        else if (this.roomKey === 'room8') {
+            this.walls.add(new Wall(this.scene, 655, 110, 270, 70));
+            this.walls.add(new Wall(this.scene, 715, 450, 135, 400));
+            this.walls.add(new Wall(this.scene, 495, 225, 133, 450));
+            this.walls.add(new Wall(this.scene, 220, 35, 450, 55));
+            this.walls.add(new Wall(this.scene, 300, 590, 700, 35));
+            this.walls.add(new Wall(this.scene, 15, 100, 35, 150));
+            this.walls.add(new Wall(this.scene, 15, 432, 30, 300));
+        }
+        else if (this.roomKey === 'room9') {
+            this.walls.add(new Wall(this.scene, 190, 508, 300, 305));
+            this.walls.add(new Wall(this.scene, 575, 508, 300, 300));
+            this.walls.add(new Wall(this.scene, 260, 103, 190, 240));
+            this.walls.add(new Wall(this.scene, 540, 103, 190, 240));
+            this.walls.add(new Wall(this.scene, 45, 300, 60, 600));
+            this.walls.add(new Wall(this.scene, 728, 300, 30, 600));
+        }
+        else if (this.roomKey === 'room10') {
+            this.walls.add(new Wall(this.scene, 342, 300, 20, 600));
+            this.walls.add(new Wall(this.scene, 458, 300, 20, 600));
+            this.walls.add(new Wall(this.scene, 30, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 780, 300, 30, 600));
+            this.walls.add(new Wall(this.scene, 400, 85, 800, 100));
+            this.walls.add(new Wall(this.scene, 80, 590, 100, 30));
+            this.walls.add(new Wall(this.scene, 278, 590, 100, 30));
+            this.walls.add(new Wall(this.scene, 506, 590, 100, 30));
+            this.walls.add(new Wall(this.scene, 713, 590, 100, 30));
+        }
+        else if (this.roomKey === 'room11') {
+            this.walls.add(new Wall(this.scene, 530, 100, 550, 170));
+            this.walls.add(new Wall(this.scene, 110, 300, 100, 600));
+            this.walls.add(new Wall(this.scene, 450, 355, 700, 100));
+        }
+        else if (this.roomKey === 'room12') {
+            this.walls.add(new Wall(this.scene, 170, 300, 30, 600)); // this is the left wall
+            this.walls.add(new Wall(this.scene, 305, 300, 30, 600)); //this is the right wall
+        }
+        else if (this.roomKey === 'room13') {
+            this.walls.add(new Wall(this.scene, 170, 300, 30, 600)); // this is the left wall
+            this.walls.add(new Wall(this.scene, 305, 300, 30, 600)); //this is the right wall
         }
     }
 
@@ -96,7 +142,39 @@ class Room extends Phaser.GameObjects.Container {
 
         else if (this.roomKey === 'room6') {
             this.doorways.add(new Doorway(this.scene, 785, 400, 10, 125, 'room5', 50, 330));
-            this.doorways.add(new Doorway(this.scene, 200, 10, 125, 10, 'room7', 200, 595));
+            this.doorways.add(new Doorway(this.scene, 210, 10, 125, 10, 'room7', 140, 595));
+        }
+        else if (this.roomKey === 'room7') {
+            this.doorways.add(new Doorway(this.scene, 140, 600, 125, 10, 'room6', 230, 70));
+            this.doorways.add(new Doorway(this.scene, 5, 240, 10, 125, 'room8', 770, 250));
+            this.doorways.add(new Doorway(this.scene, 418, 5, 110, 10, 'room9', 395, 595));
+        }
+        else if (this.roomKey === 'room8') {
+            this.doorways.add(new Doorway(this.scene, 785, 210, 10, 125, 'room7', 50, 245));
+            this.doorways.add(new Doorway(this.scene, 5, 220, 10, 125, 'room11', 770, 270));
+        }
+        else if (this.roomKey === 'room9') {
+            this.doorways.add(new Doorway(this.scene, 380, 600, 125, 10, 'room7', 400, 70));
+            this.doorways.add(new Doorway(this.scene, 125, 5, 110, 10, 'room10', 175, 590));
+            this.doorways.add(new Doorway(this.scene, 420, 5, 110, 10, 'room10', 420, 590));
+            this.doorways.add(new Doorway(this.scene, 675, 5, 110, 10, 'room10', 610, 590));
+        }
+        else if (this.roomKey === 'room10') {
+            this.doorways.add(new Doorway(this.scene, 145, 600, 125, 10, 'room9', 115, 70));
+            this.doorways.add(new Doorway(this.scene, 420, 600, 125, 10, 'room9', 410, 70));
+            this.doorways.add(new Doorway(this.scene, 610, 600, 125, 10, 'room9', 675, 70));
+        }
+        else if (this.roomKey === 'room11') {
+            this.doorways.add(new Doorway(this.scene, 785, 270, 10, 125, 'room8', 270, 70));
+            this.doorways.add(new Doorway(this.scene, 210, 10, 125, 10, 'room12', 215, 595));
+        }
+        else if (this.roomKey === 'room12') {
+            this.doorways.add(new Doorway(this.scene, 215, 600, 125, 10, 'room11', 215, 70));
+            this.doorways.add(new Doorway(this.scene, 215, 5, 125, 10, 'room13', 215, 595));
+        }
+        else if (this.roomKey === 'room13') {
+            this.doorways.add(new Doorway(this.scene, 215, 600, 125, 10, 'room12', 215, 70));
+            this.doorways.add(new Doorway(this.scene, 215, 5, 125, 10, 'roomEnd', 575, 595));
         }
     }
 

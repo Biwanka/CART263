@@ -15,6 +15,13 @@ class GameScene extends Phaser.Scene {
         this.load.image('room4', 'assets/images/room4.png');
         this.load.image('room5', 'assets/images/room5.png');
         this.load.image('room6', 'assets/images/room6.png');
+        this.load.image('room7', 'assets/images/room7.png');
+        this.load.image('room8', 'assets/images/room8.png');
+        this.load.image('room9', 'assets/images/room9.png');
+        this.load.image('room10', 'assets/images/room10.png');
+        this.load.image('room11', 'assets/images/room11.png');
+        this.load.image('room12', 'assets/images/room12.png');
+        this.load.image('room13', 'assets/images/room13.png');
 
         this.load.image('character_front_left', 'assets/images/character_front_left.png');
         this.load.image('character_front_middle', 'assets/images/character_front_middle.png');
