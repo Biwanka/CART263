@@ -131,7 +131,7 @@ class Room extends Phaser.GameObjects.Container {
         }
 
         else if (this.roomKey === 'room4') {
-            this.doorways.add(new Doorway(this.scene, 785, 245, 10, 115, 'room3', 450, 50));
+            this.doorways.add(new Doorway(this.scene, 785, 245, 10, 115, 'room3', 70, 250));
             this.doorways.add(new Doorway(this.scene, 10, 245, 10, 115, 'room5', 770, 350));
         }
 
