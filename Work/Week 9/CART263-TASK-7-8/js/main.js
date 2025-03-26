@@ -8,7 +8,7 @@ window.onload = async function () {
         console.log(parsedResultJS);
 
         let possibleColor = ["#5d3fd3", "#a73fd3", "#d33fb5", "#d35d3f", "#d3a73f"];
-
+let irisesWithColors = parsedResultJS.map()
     }
     catch (err) {
         console.log(err);

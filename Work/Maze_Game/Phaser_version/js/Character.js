@@ -9,7 +9,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
         this.setOrigin(0.5, 1); // Places the origin at the bottom center
         this.setSize(220, 200); // Adjust this to the actual character size
-        this.setScale(0.18);
+        this.setScale(0.17);
 
         //Handle input keys
         this.keys = scene.input.keyboard.createCursorKeys();
