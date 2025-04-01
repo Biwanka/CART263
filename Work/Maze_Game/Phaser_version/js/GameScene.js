@@ -38,6 +38,8 @@ class GameScene extends Phaser.Scene {
         this.load.image('character_right_side_left', 'assets/images/character_right_side_left.png');
         this.load.image('character_right_side_middle', 'assets/images/character_right_side_middle.png');
         this.load.image('character_right_side_right', 'assets/images/character_right_side_right.png');
+
+        this.load.image('chapter2', 'assets/images/chapter2.png');
     }
 
     create() {
@@ -108,6 +110,10 @@ class GameScene extends Phaser.Scene {
         this.currentRoom.checkTransition(this.character);
 
         this.character.update();
+    }
+
+    exitLastRoom() {
+        this.scene('Chapter2Scene'); //switches to chapter 3 page when the charcter exit the last room
     }
 
 }
