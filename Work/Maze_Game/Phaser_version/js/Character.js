@@ -11,7 +11,7 @@ class Character extends Phaser.Physics.Arcade.Sprite {
         this.setSize(220, 200); // Adjust this to the actual character size
         this.setScale(0.17);
 
-        //Handle input keys
+        // //Handle input keys
         this.keys = scene.input.keyboard.createCursorKeys();
         this.interactKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.speed = 150;
@@ -58,35 +58,44 @@ class Character extends Phaser.Physics.Arcade.Sprite {
             this.stop(); // Stop animation when no key is pressed
         }
 
-        // Pick-up object with spacebar
+
         if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
-            this.pickUpObject();
+            this.scene.checkItemPickup(this, this.scene.inventory, this.scene.messageText);
         }
-
-        // Carry the object if one is held
-        if (this.holdingObject) {
-            this.holdingObject.setPosition(this.x, this.y - 50);
-        }
-    }
-
-    pickUpObject() {
-        if (this.holdingObject) {
-            console.log("Dropping object:", this.holdingObject.texture.key);
-            this.holdingObject = null;
-            return;
-        }
-
-        const objects = this.scene.physics.overlapRect(this.x, this.y, 50, 50);
-
-        for (let obj of objects) {
-            if (obj.gameObject && obj.gameObject.pickable) {
-                console.log("Picked up object:", obj.gameObject.texture.key);
-                this.holdingObject = obj.gameObject;
-                return;
-            }
-        }
-        console.log("No object to pick up.");
     }
 }
 
 export default Character;
+
+
+
+
+
+//     // Pick-up object with spacebar
+//     if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+//         this.pickUpObject();
+//     }
+
+//     // Carry the object if one is held
+//     if (this.holdingObject) {
+//         this.holdingObject.setPosition(this.x, this.y - 50);
+//     }
+// }
+
+// pickUpObject() {
+//     if (this.holdingObject) {
+//         console.log("Dropping object:", this.holdingObject.texture.key);
+//         this.holdingObject = null;
+//         return;
+//     }
+
+//     const objects = this.scene.physics.overlapRect(this.x, this.y, 50, 50);
+
+//     for (let obj of objects) {
+//         if (obj.gameObject && obj.gameObject.pickable) {
+//             console.log("Picked up object:", obj.gameObject.texture.key);
+//             this.holdingObject = obj.gameObject;
+//             return;
+//         }
+//     }
+//     console.log("No object to pick up.");

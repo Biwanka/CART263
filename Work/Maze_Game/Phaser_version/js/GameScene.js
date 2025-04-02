@@ -23,6 +23,9 @@ class GameScene extends Phaser.Scene {
         this.load.image('room12', 'assets/images/room12.png');
         this.load.image('room13', 'assets/images/room13.png');
 
+        this.load.image('locked_door', 'assets/images/locked_door.png');
+        this.load.image('open_door', 'assets/images/open_door.png');
+
         this.load.image('character_front_left', 'assets/images/character_front_left.png');
         this.load.image('character_front_middle', 'assets/images/character_front_middle.png');
         this.load.image('character_front_right', 'assets/images/character_front_right.png');
@@ -39,6 +42,10 @@ class GameScene extends Phaser.Scene {
         this.load.image('character_right_side_middle', 'assets/images/character_right_side_middle.png');
         this.load.image('character_right_side_right', 'assets/images/character_right_side_right.png');
 
+        this.load.image('key', 'assets/images/key.png');
+        this.load.image('paper_code', 'assets/images/paper_code.png');
+        this.load.image('keycard', 'assets/images/keycard.png');
+
         this.load.image('chapter2', 'assets/images/chapter2.png');
     }
 
@@ -49,6 +56,9 @@ class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(this.character, this.currentRoom.walls);
         this.physics.add.overlap(this.character, this.currentRoom.doorways, this.onOverlap, null, this);
+
+        this.inventory = []; //initialize inventory
+        this.messageText = this.add.text(20, 20, '', { fontSize: '16px', fill: '#fff' });
 
         this.createAnimations();
 
@@ -108,6 +118,11 @@ class GameScene extends Phaser.Scene {
     update() {
         console.log(`Character Position - X: ${this.character.x}, Y: ${this.character.y}`);
         this.currentRoom.checkTransition(this.character);
+
+        if (this.currentRoom) {
+            this.currentRoom.checkItemPickup(this.character, this.inventory, this.messageText);
+            this.currentRoom.checkDoorUnlock(this.character, this.inventory, this.messageText);
+        }
 
         this.character.update();
     }
