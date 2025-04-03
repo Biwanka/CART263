@@ -61,7 +61,7 @@ class GameScene extends Phaser.Scene {
         this.messageText = this.add.text(20, 20, '', { fontSize: '16px', fill: '#fff' });
 
         this.createAnimations();
-
+        // console.log(this.items);
         // const item = this.physics.add.sprite(300, 300, 'item_key');
         // item.pickable = true;
         // this.physics.add.overlap(character,item);
@@ -115,14 +115,25 @@ class GameScene extends Phaser.Scene {
         });
     }
 
+    checkItemPickup(character, inventory, messageText) {
+        this.currentRoom.items.forEach((item, index) => {
+            if (Phaser.Math.Distance.Between(character.x, character.y, item.x, item.y) < 30) {
+                inventory.push(item.name);
+                messageText.setText(`Picked up: ${item.description}`);
+                item.destroy();
+                this.currentRoom.items.splice(index, 1);
+            }
+        });
+    }
+
     update() {
         console.log(`Character Position - X: ${this.character.x}, Y: ${this.character.y}`);
         this.currentRoom.checkTransition(this.character);
 
-        if (this.currentRoom) {
-            this.currentRoom.checkItemPickup(this.character, this.inventory, this.messageText);
-            this.currentRoom.checkDoorUnlock(this.character, this.inventory, this.messageText);
-        }
+        // if (this.currentRoom) {
+        //     this.currentRoom.checkItemPickup(this.character, this.inventory, this.messageText);
+        //     this.currentRoom.checkDoorUnlock(this.character, this.inventory, this.messageText);
+        // }
 
         this.character.update();
     }

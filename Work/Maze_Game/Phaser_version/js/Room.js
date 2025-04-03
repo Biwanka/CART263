@@ -218,32 +218,6 @@ class Room extends Phaser.GameObjects.Container {
         this.createDoorways();
 
         this.scene.physics.add.collider(character, this.walls);
-
-    }
-
-    /**
-     * this.items.children.iterate(item => {...})   = Loops through each item in the room.
-     * 
-     * if (Phaser.Geom.Intersects.RectangleToRectangle(...)) = Phaser Function: Checks if the player is touching the item.
-     * 
-     * messageText.setText("Press SPACE to pick up...") = Displays a text hint when near an item.
-     * 
-     * if (this.scene.input.keyboard.checkDown(...))  =   Phaser Function: Checks if SPACE is pressed.
-     * 
-     * inventory.push(item.name); =  Adds the item to inventory.
-     * 
-     * item.destroy(); → Removes the item from the game.
-     */
-
-    checkItemPickup(character, inventory, messageText) {
-        this.items.forEach((item, index) => {
-            if (Phaser.Math.Distance.Between(character.x, character.y, item.x, item.y) < 30) {
-                inventory.push(item.name);
-                messageText.setText(`Picked up: ${item.description}`);
-                item.destroy();
-                this.items.splice(index, 1);
-            }
-        });
     }
 
     checkDoorUnlock(character, inventory, messageText) {
@@ -286,3 +260,16 @@ export default Room;
 //     });
 // }
 
+/**
+ * this.items.children.iterate(item => {...})   = Loops through each item in the room.
+ * 
+ * if (Phaser.Geom.Intersects.RectangleToRectangle(...)) = Phaser Function: Checks if the player is touching the item.
+ * 
+ * messageText.setText("Press SPACE to pick up...") = Displays a text hint when near an item.
+ * 
+ * if (this.scene.input.keyboard.checkDown(...))  =   Phaser Function: Checks if SPACE is pressed.
+ * 
+ * inventory.push(item.name); =  Adds the item to inventory.
+ * 
+ * item.destroy(); → Removes the item from the game.
+ */

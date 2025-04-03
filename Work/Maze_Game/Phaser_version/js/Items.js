@@ -14,10 +14,15 @@ export class Item extends Phaser.Physics.Arcade.Sprite {
 
         if (!inventory.includes(this.name)) {
             inventory.push(this.name); //add the item to inventory
-            messageText.setText(`${this.name}picked up!`); //show message
-            this.destroy();  //remove from scene
+            messageText.setText(`${this.name} picked up!`); //show message
+            // this.destroy();  //remove from scene
+
+
+            // Remove item after a short delay
+            this.scene.time.delayedCall(500, () => {
+                this.destroy();
+            });
 
         }
     }
-
 }

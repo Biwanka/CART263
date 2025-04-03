@@ -58,7 +58,6 @@ class Character extends Phaser.Physics.Arcade.Sprite {
             this.stop(); // Stop animation when no key is pressed
         }
 
-
         if (Phaser.Input.Keyboard.JustDown(this.interactKey)) {
             this.scene.checkItemPickup(this, this.scene.inventory, this.scene.messageText);
         }
