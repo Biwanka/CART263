@@ -1,6 +1,6 @@
+import Item from './Items.js';
 import Wall from './Wall.js';
 import Doorway from './Doorway.js';
-import { Item } from './Items.js';
 
 class Room extends Phaser.GameObjects.Container {
     constructor(scene, roomKey) {
@@ -9,10 +9,8 @@ class Room extends Phaser.GameObjects.Container {
 
         this.scene = scene; //Store references to the GameScene
         this.roomKey = roomKey;  // store the room's name (like "room1")
+        //this.items = []; //store items in this room
         this.scene.add.existing(this);
-
-        this.items = []; //store items in this room
-
 
         //add room background
         this.background = this.scene.add.image(400, 300, roomKey);
@@ -20,10 +18,24 @@ class Room extends Phaser.GameObjects.Container {
 
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.doorways = this.scene.physics.add.staticGroup();
+        this.itemsGroup = this.scene.physics.add.group();
 
+        this.createItems();
         this.createWalls();
         this.createDoorways();
-        this.createItems();
+    }
+
+
+    createRoomItems(roomKey) {
+        const roomItems = {
+            1: [{ name: 'Key', x: 300, y: 250, sprite: 'key' }],
+            2: [{ name: 'Code', x: 500, y: 400, sprite: 'code' }],
+            3: [{ name: 'Keycard', x: 600, y: 200, sprite: 'keycard' }]
+        };
+
+        return (roomItems[roomKey] || []).map(data =>
+            new Item(this.scene, data.x, data.y, data.sprite, data.name)
+        );
     }
 
     createWalls() {
@@ -184,17 +196,20 @@ class Room extends Phaser.GameObjects.Container {
     }
 
     createItems() {
-        if (this.roomKey === 'room1') {
-            let key = new Item(this.scene, 400, 300, 'key', 'A rusty key. It might open something.');
-            this.items.push(key);
-        }
-        if (this.roomKey === 'room2') {
-            let paperCode = new Item(this.scene, 500, 350, 'paper_code', 'A piece of paper with strange numbers.');
-            this.items.push(paperCode);
-        }
-        if (this.roomKey === 'room3') {
-            let keycard = new Item(this.scene, 600, 400, 'keycard', 'A magnetic keycard. It looks high-tech.');
-            this.items.push(keycard);
+        const roomItems = {
+            'Room1': [
+                { x: 200, y: 300, texture: 'key', message: 'You found a key!', id: 'key1' }
+            ],
+            'Room2': [
+                { x: 500, y: 500, texture: 'note', message: 'A mysterious note...', id: 'note1' }
+            ]
+        };
+
+        if (roomItems[this.roomKey]) {
+            roomItems[this.roomKey].forEach(data => {
+                let item = new Item(this.scene, data.x, data.y, data.texture, data.message, data.id);
+                this.itemsGroup.add(item);
+            });
         }
     }
 
@@ -235,6 +250,62 @@ class Room extends Phaser.GameObjects.Container {
     }
 }
 export default Room;
+
+
+// createItems() {
+//     if (this.roomKey === 'room1') {
+//         let key = new Item(this.scene, 400, 300, 'key', 'A rusty key. It might open something.');
+//         this.items.push(key);
+//     }
+//     if (this.roomKey === 'room2') {
+//         let paperCode = new Item(this.scene, 500, 350, 'paper_code', 'A piece of paper with strange numbers.');
+//         this.items.push(paperCode);
+//     }
+//     if (this.roomKey === 'room3') {
+//         let keycard = new Item(this.scene, 600, 400, 'keycard', 'A magnetic keycard. It looks high-tech.');
+//         this.items.push(keycard);
+//     }
+// }
+
+// enterRoom() {
+//     // Load walls and doorways as before (unchanged)
+
+//     // Remove existing items before loading new ones
+//     this.scene.itemsGroup.clear(true, true);
+
+//     // Load the correct items for this room
+//     this.items.forEach(itemData => {
+//         let newItem = new Item(this.scene, itemData.x, itemData.y, itemData.texture, itemData.name);
+//         this.scene.add.existing(newItem);
+//         this.scene.physics.add.existing(newItem);
+//         this.scene.itemsGroup.add(newItem);
+//     });
+// }
+
+
+
+
+
+// addItem(item) {
+//     this.items.push(item);
+// }
+
+// hideItems() {
+//     this.items.forEach(item => item.setVisible(false));
+// }
+
+// showItems() {
+//     this.items.forEach(item => item.setVisible(true));
+// }
+
+
+
+
+
+
+
+
+
 /**
  * inventory.includes('Key') → Checks if the player has a key.
  *

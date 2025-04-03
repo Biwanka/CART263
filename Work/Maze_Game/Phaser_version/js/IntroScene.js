@@ -2,11 +2,9 @@ export default class IntroScene extends Phaser.Scene {
 
     constructor() {
         super('IntroScene');
-
     }
 
     preload() {
-
         this.load.image('Intro_Cover', 'assets/images/Intro_Cover.png');
         this.load.image('Intro_Page2', 'assets/images/Intro_Page2.png');
         this.load.image('Intro_Chapter1', 'assets/images/Intro_Chapter1.png');
@@ -47,6 +45,4 @@ export default class IntroScene extends Phaser.Scene {
             this.scene.start('GameScene'); //This will start the game when the flipping of pages is done
         }
     }
-
-
 }
