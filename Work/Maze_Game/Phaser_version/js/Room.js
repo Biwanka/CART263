@@ -1,4 +1,4 @@
-import Item from './Items.js';
+
 import Wall from './Wall.js';
 import Doorway from './Doorway.js';
 
@@ -9,33 +9,18 @@ class Room extends Phaser.GameObjects.Container {
 
         this.scene = scene; //Store references to the GameScene
         this.roomKey = roomKey;  // store the room's name (like "room1")
-        //this.items = []; //store items in this room
-        this.scene.add.existing(this);
 
-        //add room background
+        this.scene.add.existing(this);
+        this.name = roomKey;
+
         this.background = this.scene.add.image(400, 300, roomKey);
         this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
 
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.doorways = this.scene.physics.add.staticGroup();
-        this.itemsGroup = this.scene.physics.add.group();
 
-        this.createItems();
         this.createWalls();
         this.createDoorways();
-    }
-
-
-    createRoomItems(roomKey) {
-        const roomItems = {
-            1: [{ name: 'Key', x: 300, y: 250, sprite: 'key' }],
-            2: [{ name: 'Code', x: 500, y: 400, sprite: 'code' }],
-            3: [{ name: 'Keycard', x: 600, y: 200, sprite: 'keycard' }]
-        };
-
-        return (roomItems[roomKey] || []).map(data =>
-            new Item(this.scene, data.x, data.y, data.sprite, data.name)
-        );
     }
 
     createWalls() {
@@ -195,24 +180,6 @@ class Room extends Phaser.GameObjects.Container {
         }
     }
 
-    createItems() {
-        const roomItems = {
-            'Room1': [
-                { x: 200, y: 300, texture: 'key', message: 'You found a key!', id: 'key1' }
-            ],
-            'Room2': [
-                { x: 500, y: 500, texture: 'note', message: 'A mysterious note...', id: 'note1' }
-            ]
-        };
-
-        if (roomItems[this.roomKey]) {
-            roomItems[this.roomKey].forEach(data => {
-                let item = new Item(this.scene, data.x, data.y, data.texture, data.message, data.id);
-                this.itemsGroup.add(item);
-            });
-        }
-    }
-
     checkTransition(character) {
         this.scene.physics.world.overlap(character, this.doorways, this.onOverlap, null, this);
     }
@@ -234,113 +201,6 @@ class Room extends Phaser.GameObjects.Container {
 
         this.scene.physics.add.collider(character, this.walls);
     }
-
-    checkDoorUnlock(character, inventory, messageText) {
-        if (this.roomKey === 'room2') {
-            let hasKey = inventory.includes('key');
-            if (hasKey) {
-                messageText.setText("You unlocked the door!");
-                this.doorways.children.entries.forEach(door => {
-                    door.setTexture('open_door'); // Change the door image
-                });
-            } else {
-                messageText.setText("The door is locked. You need a key.");
-            }
-        }
-    }
 }
 export default Room;
 
-
-// createItems() {
-//     if (this.roomKey === 'room1') {
-//         let key = new Item(this.scene, 400, 300, 'key', 'A rusty key. It might open something.');
-//         this.items.push(key);
-//     }
-//     if (this.roomKey === 'room2') {
-//         let paperCode = new Item(this.scene, 500, 350, 'paper_code', 'A piece of paper with strange numbers.');
-//         this.items.push(paperCode);
-//     }
-//     if (this.roomKey === 'room3') {
-//         let keycard = new Item(this.scene, 600, 400, 'keycard', 'A magnetic keycard. It looks high-tech.');
-//         this.items.push(keycard);
-//     }
-// }
-
-// enterRoom() {
-//     // Load walls and doorways as before (unchanged)
-
-//     // Remove existing items before loading new ones
-//     this.scene.itemsGroup.clear(true, true);
-
-//     // Load the correct items for this room
-//     this.items.forEach(itemData => {
-//         let newItem = new Item(this.scene, itemData.x, itemData.y, itemData.texture, itemData.name);
-//         this.scene.add.existing(newItem);
-//         this.scene.physics.add.existing(newItem);
-//         this.scene.itemsGroup.add(newItem);
-//     });
-// }
-
-
-
-
-
-// addItem(item) {
-//     this.items.push(item);
-// }
-
-// hideItems() {
-//     this.items.forEach(item => item.setVisible(false));
-// }
-
-// showItems() {
-//     this.items.forEach(item => item.setVisible(true));
-// }
-
-
-
-
-
-
-
-
-
-/**
- * inventory.includes('Key') → Checks if the player has a key.
- *
- * if (this.scene.input.keyboard.checkDown(...))
- *
- * If SPACE is pressed and the player has a key, the door is destroyed.
- */
-
-// checkDoorUnlock(character, inventory, messageText) {
-//     this.doorways.children.iterate(doorway => {
-//         if (!doorway) return; // Ensure doorway exists
-
-//         if (Phaser.Geom.Intersects.RectangleToRectangle(character.getBounds(), doorway.getBounds())) {
-//             if (inventory.includes('Key')) {
-//                 messageText.setText('Press SPACE to open door');
-//                 if (this.scene.input.keyboard.checkDown(this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE), 250)) {
-//                     doorway.destroy(); // Remove the door when unlocked
-//                 }
-//             } else {
-//                 messageText.setText('The door is locked. Find a key.');
-//             }
-//         }
-//     });
-// }
-
-/**
- * this.items.children.iterate(item => {...})   = Loops through each item in the room.
- * 
- * if (Phaser.Geom.Intersects.RectangleToRectangle(...)) = Phaser Function: Checks if the player is touching the item.
- * 
- * messageText.setText("Press SPACE to pick up...") = Displays a text hint when near an item.
- * 
- * if (this.scene.input.keyboard.checkDown(...))  =   Phaser Function: Checks if SPACE is pressed.
- * 
- * inventory.push(item.name); =  Adds the item to inventory.
- * 
- * item.destroy(); → Removes the item from the game.
- */
