@@ -58,6 +58,8 @@ class GameScene extends Phaser.Scene {
         this.character = new Character(this, 400, 300);
         this.add.existing(this.character);
 
+        this.items = new Items(this, this.currentRoom.items);
+
         this.inventory = [];
         this.messageText = this.add.text(20, 20, '', { fontSize: '16px', fill: '#fff' }).setScrollFactor(0);
 
