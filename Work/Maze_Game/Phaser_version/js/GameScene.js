@@ -1,14 +1,21 @@
 
 import Room from './Room.js';
 import Character from './Character.js';
+//import ink_globmovement from './ink_glob movement.js';
+import InkGlob from '/Maze_Game/Phaser_version/js/inkglob.js';
+//import InkGlobChase from './ink chase.js';
 
 class GameScene extends Phaser.Scene {
     constructor() {
         super('GameScene');
+
+        this.inkGlob = null;
+        this.inkSpeed = 0;
     }
 
     preload() {
 
+        //Load the images of the rooms
         this.load.image('room1', 'assets/images/room1.png');
         this.load.image('room2', 'assets/images/room2.png');
         this.load.image('room3', 'assets/images/room3.png');
@@ -23,9 +30,14 @@ class GameScene extends Phaser.Scene {
         this.load.image('room12', 'assets/images/room12.png');
         this.load.image('room13', 'assets/images/room13.png');
 
+        //load the 2 version images of object that are effect by items, images of object whoes visual change
+        this.load.image('locked_chest', 'assets/images/locked_chest.png');
+        this.load.image('open_chest.png', 'assets/images/open_chest.png');
         this.load.image('locked_door', 'assets/images/locked_door.png');
         this.load.image('open_door', 'assets/images/open_door.png');
 
+
+        //loads the character image for walking in each directions
         this.load.image('character_front_left', 'assets/images/character_front_left.png');
         this.load.image('character_front_middle', 'assets/images/character_front_middle.png');
         this.load.image('character_front_right', 'assets/images/character_front_right.png');
@@ -42,13 +54,26 @@ class GameScene extends Phaser.Scene {
         this.load.image('character_right_side_middle', 'assets/images/character_right_side_middle.png');
         this.load.image('character_right_side_right', 'assets/images/character_right_side_right.png');
 
+        //this.load.image('inkglob','assets/images/ink_glob.png');
+
+        // this.load.image('notecard','assets/images/notecard.png');
+        // this.load.image('notecard2','assets/images/notecard.2.png');
+
+
+        //load the images of items that character will pick up
         this.load.image('key', 'assets/images/key.png');
         this.load.image('paper_code', 'assets/images/paper_code.png');
         this.load.image('keycard', 'assets/images/keycard.png');
+        // this.load.image('key2', 'assets/images/key_copy_2_optimized.png');
+        // this.load.image('paper_code2','assets/images/paper_code_copy_1_optimized.png');
+        this.load.image('inkglob2', 'assets/images/ink_glob_copy_9_optimized.png');
 
         this.load.image('textbox', 'assets/images/textbox.png');
 
         this.load.image('chapter2', 'assets/images/chapter2.png');
+
+
+        this.load.audio('ambience', 'assets/ambience/eerie-ambience-6836.mp3');
     }
 
     create() {
@@ -57,6 +82,16 @@ class GameScene extends Phaser.Scene {
         this.currentRoom = new Room(this, 'room1');
         this.add.existing(this.currentRoom);
         this.lastRoomKey = null; // Track room changes properly
+
+
+        // plays the background sound
+        if (!this.ambience || !this.ambience.isPlaying) {
+            this.ambience = this.sound.add('ambience', {
+                loop: true,
+                volume: 0.5
+            });
+            this.ambience.play();
+        }
 
 
         //load Character
@@ -75,21 +110,38 @@ class GameScene extends Phaser.Scene {
         // Create textbox image and message text (initially hidden)
         // this.textbox = this.add.image(400, 550, 'textbox').setScrollFactor(0);
 
-        this.textbox = this.add.image(150, 100, 'textbox').setScale(0.5).setScrollFactor(0).setOrigin(0, 0);
+
+        // instintiate inkglob
+        //         this.inkGlob = new InkGlob(this, 400, 300);
+        // this.add.existing(this.inkGlob);
+
+        if (this.currentRoom.roomKey === 'room4' && !this.inkGlob) {
+            this.spawnInkGlob();
+        }
+        console.log(this.inkglob);
+        //this.lastRoomKey= this.currentRoom.roomKey;
+        //const InkGlob= new InkGlob(this,x,y);
+        // this.inkGlob.setVisible(false);
+        // this.inkGlob.body.setEnable(false);
+
+
+
+        this.textbox = this.add.image(200, 100, 'textbox').setScale(0.3).setScrollFactor(0).setOrigin(0, 0);
         this.textbox.setVisible(false);
 
-        this.messageText = this.add.text(170, 110, '', {
-            fontSize: '16px',
+        this.messageText = this.add.text(250, 150, '', {
+            fontSize: '32px',
             fill: '#000000', // black text
-            wordWrap: { width: 300 },
+            align: 'center',
+            wordWrap: { width: 300, useAdvancedWrap: true },
         }).setScrollFactor(0).setVisible(false);
 
         // Item configuration per room
         this.itemData = [
-            { name: 'key', x: 360, y: 400, room: 'room1', message: 'You found a key!' },
-            { name: 'paper_code', x: 420, y: 300, room: 'room3', message: 'An old mysterious book...' },
-            { name: 'paper_code', x: 350, y: 350, room: 'room6', message: 'You found a paper with a code!' },
-            { name: 'keycard', x: 320, y: 420, room: 'room10', message: 'This might unlock something important.' },
+            { name: 'key', x: 610, y: 564, room: 'room2', message: 'You found a key!' },
+            { name: 'paper_code', x: 420, y: 300, room: 'room6', message: 'An old mysterious book...' },
+            { name: 'paper_code', x: 382, y: 3202, room: 'room9', message: 'You found a paper with a code!' },
+            { name: 'keycard', x: 56, y: 362, room: 'room10', message: 'This might unlock something important.' },
         ];
 
         this.createAnimations();
