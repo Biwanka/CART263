@@ -2,7 +2,7 @@
 import Room from './Room.js';
 import Character from './Character.js';
 //import ink_globmovement from './ink_glob movement.js';
-import InkGlob from '/Maze_Game/Phaser_version/js/inkglob.js';
+//import InkGlob from '/Maze_Game/Phaser_version/js/inkglob.js';
 //import InkGlobChase from './ink chase.js';
 
 class GameScene extends Phaser.Scene {
@@ -32,7 +32,7 @@ class GameScene extends Phaser.Scene {
 
         //load the 2 version images of object that are effect by items, images of object whoes visual change
         this.load.image('locked_chest', 'assets/images/locked_chest.png');
-        this.load.image('open_chest.png', 'assets/images/open_chest.png');
+        this.load.image('open_chest', 'assets/images/open_chest.png');
         this.load.image('locked_door', 'assets/images/locked_door.png');
         this.load.image('open_door', 'assets/images/open_door.png');
 
@@ -130,7 +130,7 @@ class GameScene extends Phaser.Scene {
         this.textbox.setVisible(false);
 
         this.messageText = this.add.text(250, 150, '', {
-            fontSize: '32px',
+            fontSize: '30px',
             fill: '#000000', // black text
             align: 'center',
             wordWrap: { width: 300, useAdvancedWrap: true },
@@ -140,8 +140,8 @@ class GameScene extends Phaser.Scene {
         this.itemData = [
             { name: 'key', x: 610, y: 564, room: 'room2', message: 'You found a key!' },
             { name: 'paper_code', x: 420, y: 300, room: 'room6', message: 'An old mysterious book...' },
-            { name: 'paper_code', x: 382, y: 3202, room: 'room9', message: 'You found a paper with a code!' },
-            { name: 'keycard', x: 56, y: 362, room: 'room10', message: 'This might unlock something important.' },
+            { name: 'paper_code', x: 382, y: 320, room: 'room9', message: 'You found a paper with a code!' },
+            { name: 'keycard', x: 400, y: 186, room: 'room10', message: 'This might unlock something important.' },
         ];
 
         this.createAnimations();
@@ -196,6 +196,20 @@ class GameScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+
+
+
+        //     this.anims.create({
+        //         key:'animateRoom13',
+        //         frames:[
+        //             {key:'room13'},
+        //         {key:'room13.2'},
+        //     {key: 'room13.3'}
+        // ],
+        // frameRate: 5,
+        // repeat:-1
+
+        //     });
     }
 
     spawnItems() {
@@ -216,7 +230,7 @@ class GameScene extends Phaser.Scene {
     }
 
     collectItem(item) {
-        if (!item.active) return;
+        if (!item.active) return; // Don't collect if it's already inactive
 
         // Show textbox and message
         this.textbox.setVisible(true);
@@ -229,10 +243,10 @@ class GameScene extends Phaser.Scene {
             this.messageText.setVisible(false);
         });
 
-        // Remove item
+        // Remove item (disable body to make it disappear)
         item.disableBody(true, true);
 
-        // Optionally track collected items
+        // Optionally track collected items (remove it from the item data)
         this.itemData = this.itemData.filter(data => data.name !== item.getData('name'));
     }
 
@@ -242,24 +256,146 @@ class GameScene extends Phaser.Scene {
         this.character.update();
         this.currentRoom.checkTransition(this.character);
 
-        // Check if we changed rooms
-        if (this.currentRoom.roomKey !== this.lastRoomKey) {
-            this.lastRoomKey = this.currentRoom.roomKey;
-            this.spawnItems(); // Respawn only correct items for this room
+        // // Check if we changed rooms
+        // if (this.currentRoom.roomKey !== this.lastRoomKey) {
+        //     this.lastRoomKey = this.currentRoom.roomKey;
+        //     this.spawnItems(); // Respawn only correct items for this room
 
-            // Update collision for new room
-            this.physics.add.collider(this.character, this.currentRoom.walls);
+        //     // Update collision for new room
+        //     this.physics.add.collider(this.character, this.currentRoom.walls);
+        // }
+
+        // if (this.overlappingItem && Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey('SPACE'))) {
+        //     this.collectItem(this.overlappingItem);
+        //     this.overlappingItem = null;
+        // }
+        // // this.overlappingItem = null;
+
+        if (this.currentRoom.roomKey === 'room4' && !this.inkGlob) {
+            this.spawnInkGlob();
         }
 
+        if (this.inkGlob && this.inkGlob.visible) {
+            this.physics.moveToObject(this.inkGlob, this.character, this.inkSpeed);
+        }
+        // Handle item collection with spacebar
         if (this.overlappingItem && Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey('SPACE'))) {
             this.collectItem(this.overlappingItem);
-            this.overlappingItem = null;
+            this.overlappingItem = null; // Reset overlapping item
         }
-        // this.overlappingItem = null;
+        // if (this.currentRoom.roomKey !== this.lastRoomKey) {
+        //     this.spawnItems();
+        //     this.lastRoomKey = this.currentRoom.roomKey;
+        // }
+        if (this.currentRoom.roomKey !== this.lastRoomKey) {
+            if (this.lastRoomKey === 'room4' && this.inkGlob) {
+                this.inkGlob.destroy();
+                this.inkGlob = null;
+                this.inkSpeed = 0;
+                console.log("left room 4 - ink glob removed");
+            }
+            // if (this.currentRoom.roomKey !== this.lastRoomKey){
+            //     if(this.lastRoomKey === 'room1' && this.ambience && this.ambience.isPlaying){
+            //         this.ambience.stop();
+            //     }
+            //     }
+            if (this.currentRoom.roomKey === 'room1') {
+                if (!this.ambience || !this.ambience.isPlaying) {
+                    this.ambience = this.sound.add('ambience', {
+                        loop: true,
+                        volume: 0.5
+                    });
+                    this.ambience.play();
+                }
+            }
+            // Handle item collection with spacebar
+            if (this.overlappingItem && Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey('SPACE'))) {
+                this.collectItem(this.overlappingItem);
+                this.overlappingItem = null;
+            }
+            if (this.currentRoom.roomKey !== this.lastRoomKey) {
+                this.spawnItems();
+                this.lastRoomKey = this.currentRoom.roomKey;
+            }
+            // if(this.currentRoom.roomKey !== this.lastRoomKey) {
+            //     if(this.lastRoomKey === 'room4' && this.inkGlob) {
+            //         this.inkGlob.destroy();
+            //         this.inkGlob = null;
+            //         this.inkSpeed = 0;
+            //         console.log("left room 4 - ink glob removed");
+            //     }
+
+
+            this.lastRoomKey = this.currentRoom.roomKey;
+        }
     }
+    // onOverlap(){
+    //     //console.log("Entering new room:", doorway.targetRoom);
+    //    // this.currentRoom= new Room(this, doorway.targetRoom);
+
+    //     if(this.inkGlob == 'room4'){
+    //         this.inkGlob.destroy();
+    //         this.inkGlob=null;
+    //         console.log("ink glob disappears");
+    //     }
+    // }
+    spawnInkGlob() {
+        console.log("Entering Room 4 - Ink chase begins!");
+        const spawnX = 517.5;
+        const spawnY = 245;
+
+        this.inkGlob = new InkGlob(this, spawnX, spawnY);
+        this.add.existing(this.inkGlob);
+        this.inkGlob.setScale(0.5);
+        this.inkGlob.setVisible(false);
+        this.inkSpeed = 0;
+
+        this.physics.add.existing(this.inkGlob);
+        this.physics.add.overlap(this.character, this.inkGlob, this.onInkGlobCatch, null, this);
+
+        this.startChaseSequence();
+    }
+
+    startChaseSequence() {
+        console.log("Ink glob will appear soon...");
+        this.time.delayedCall(2000, () => {
+            if (this.inkGlob) {
+                this.inkGlob.setVisible(true);
+                console.log("Ink glob appears!");
+            }
+        });
+
+        this.time.delayedCall(3000, () => {
+            this.inkSpeed = 70;
+            console.log("Ink glob starts moving");
+        });
+
+        this.time.delayedCall(10000, () => {
+            if (this.currentRoom.roomKey === 'room4') {
+                console.log("Ink glob catches you! Game Over!");
+                this.scene.restart();
+            }
+        });
+    }
+
+
+    shutdown() {
+        if (this.inkGlob) {
+            this.inkGlob.destroy();
+            this.inkGlob = null;
+            console.log("Room transition - ink glob cleaned up.");
+        }
+    }
+    //   onInkGlobCatch(){
+    //     console.log("Caught by the ink glob! Game Over!");
+    //     this.scene.restart();
+    //   }
 
     exitLastRoom() {
         this.scene('Chapter2Scene'); //switches to chapter 3 page when the charcter exit the last room
+        if (this.ambience && this.ambience.isPlaying) {
+            this.ambience.stop();
+        }
     }
 
 }

@@ -1,6 +1,9 @@
 
 import Wall from './Wall.js';
 import Doorway from './Doorway.js';
+//import Room4 from'./Room4Scene.js';
+//import InkGlobChase from './ink chase.js';
+//import InkGlob from '/Maze_Game/Phaser_version/js/inkglob.js';
 
 class Room extends Phaser.GameObjects.Container {
     constructor(scene, roomKey) {
@@ -19,8 +22,32 @@ class Room extends Phaser.GameObjects.Container {
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.doorways = this.scene.physics.add.staticGroup();
 
+        this.scene.sound.pauseOnBlur = false;
+
         this.createWalls();
         this.createDoorways();
+
+        // this.sound.pauseOnBlur=false;
+        // if(this.roomKey === 'room13'){
+        //     this.handleRoom13Animation();
+        // }
+        // if(roomKey === 'room13'){
+        //     this.background= this.scene.add.image(400,300,'room13.3.png');
+        //     this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
+
+        //     this.animationState=true;
+        // this.room13Timer=this.scene.time.addEvent({
+        //     delay:500,
+
+        // })
+        //}
+
+
+        // if (this.roomKey === 'room4'){
+        //     this.inRoom4=true;
+        //     this.lightOn=false;
+        // }
+
     }
 
     createWalls() {
@@ -113,7 +140,19 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 170, 300, 30, 600)); // this is the left wall
             this.walls.add(new Wall(this.scene, 305, 300, 30, 600)); //this is the right wall
         }
+        // this.spawnItems();
     }
+
+    // chaseCharacter(character) {
+    //     this.scene.physics.moveToObject(this, character, this.speed);
+    // }
+    // stopTimeChase() {
+    //     if (this.chaseTimer) {
+    //         this.chaseTimer.remove();
+    //         this.chaseTimer = null;
+    //         console.log("Chase event stopped.");
+    //     }
+    // }
 
     createDoorways() {
         this.doorways.clear(true, true);
@@ -180,12 +219,44 @@ class Room extends Phaser.GameObjects.Container {
         }
     }
 
+    // handleRoom13Animations(){
+    //     if(this.scene.hasKey){
+    //         this.background.setTexture('room13_3.png');
+
+    //         this.scene.tweens.add({
+    //             targets:this.background,
+    //             scaleX:1.2,
+    //             scaleY:1.2,
+    //             ease:'Power1',
+    //             duration: 1000,
+    //             yoyo:true,
+    //             repeat: -1
+    //         });
+    //     }
+    // }
+    // toggleLight(state){
+    //     this.lightOn=state;
+    //     if(this.lightOn){
+    //         console.log("Light turned on");
+    //     } else{
+    //         console.log("light turned off");
+    //     }
+    // }
+
+
     checkTransition(character) {
         this.scene.physics.world.overlap(character, this.doorways, this.onOverlap, null, this);
     }
 
     onOverlap(character, doorway) {
         console.log(`Transitioning to ${doorway.targetRoom}...`);
+
+        // if(this.roomKey === 'room13' && doorway.TargetRoom === 'roomEnd'){
+        //     if(!this.scene.hasCode){
+        //         console.log("you need the code to proceed.");
+        //         return;
+        //     }}
+
 
         this.background.setTexture(doorway.targetRoom);
 
