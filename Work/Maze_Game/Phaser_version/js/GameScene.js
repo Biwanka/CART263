@@ -263,6 +263,14 @@ class GameScene extends Phaser.Scene {
         this.character.update();
         this.currentRoom.checkTransition(this.character);
 
+        // this.items.children.iterate(item => {
+        //     if (item && Phaser.Geom.Intersects.RectangleToRectangle(this.player.getBounds(), item.getBounds())) {
+        //         if (!item.collected) {
+        //             this.collectItem(item);
+        //         }
+        //     }
+        // });
+
         // // Check if we changed rooms
         // if (this.currentRoom.roomKey !== this.lastRoomKey) {
         //     this.lastRoomKey = this.currentRoom.roomKey;
