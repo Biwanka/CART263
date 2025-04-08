@@ -2,7 +2,7 @@
 import Room from './Room.js';
 import Character from './Character.js';
 //import ink_globmovement from './ink_glob movement.js';
-//import InkGlob from '/Maze_Game/Phaser_version/js/inkglob.js';
+import InkGlob from './InkGlob.js';
 //import InkGlobChase from './ink chase.js';
 
 class GameScene extends Phaser.Scene {
@@ -260,7 +260,7 @@ class GameScene extends Phaser.Scene {
         // if (this.currentRoom.roomKey !== this.lastRoomKey) {
         //     this.lastRoomKey = this.currentRoom.roomKey;
         //     this.spawnItems(); // Respawn only correct items for this room
-
+        // }
         //     // Update collision for new room
         //     this.physics.add.collider(this.character, this.currentRoom.walls);
         // }
