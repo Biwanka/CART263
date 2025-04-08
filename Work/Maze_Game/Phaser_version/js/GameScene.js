@@ -70,7 +70,13 @@ class GameScene extends Phaser.Scene {
 
         this.load.image('textbox', 'assets/images/textbox.png');
 
-        this.load.image('chapter2', 'assets/images/chapter2.png');
+
+
+
+
+
+
+        this.load.image('chapter1', 'assets/images/chapter2.png');
 
 
         this.load.audio('ambience', 'assets/ambience/eerie-ambience-6836.mp3');
@@ -139,8 +145,8 @@ class GameScene extends Phaser.Scene {
         // Item configuration per room
         this.itemData = [
             { name: 'key', x: 610, y: 564, room: 'room2', message: 'You found a key!' },
-            { name: 'paper_code', x: 420, y: 300, room: 'room6', message: 'An old mysterious book...' },
-            { name: 'paper_code', x: 382, y: 320, room: 'room9', message: 'You found a paper with a code!' },
+            { name: 'paper_code', x: 420, y: 300, room: 'room6', message: 'You found a paper with a code!' },
+            // { name: 'paper_code', x: 382, y: 320, room: 'room9', message: 'An old mysterious book...' },
             { name: 'keycard', x: 400, y: 186, room: 'room10', message: 'This might unlock something important.' },
         ];
 
@@ -222,6 +228,7 @@ class GameScene extends Phaser.Scene {
                 item.setData('message', data.message);
                 item.setData('name', data.name);
 
+                item.setScale(0.3);
                 this.physics.add.overlap(this.character, item, () => {
                     this.overlappingItem = item;
                 }, null, this);

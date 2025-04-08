@@ -5,7 +5,7 @@ export default class IntroScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('Intro_Cover', 'assets/images/Intro_Cover.png');
+        this.load.image('Intro_Cover', 'assets/images/Intro copy.png');
         this.load.image('Intro_Page2', 'assets/images/Intro_Page2.png');
         this.load.image('Intro_Chapter1', 'assets/images/Intro_Chapter1.png');
     }
