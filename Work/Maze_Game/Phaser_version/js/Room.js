@@ -1,4 +1,3 @@
-
 import Wall from './Wall.js';
 import Doorway from './Doorway.js';
 //import Room4 from'./Room4Scene.js';
@@ -21,33 +20,30 @@ class Room extends Phaser.GameObjects.Container {
 
         this.walls = this.scene.physics.add.staticGroup(); // Makes walls static
         this.doorways = this.scene.physics.add.staticGroup();
-
-        this.scene.sound.pauseOnBlur = false;
-
+        this.scene.sound.pauseOnBlur=false;
         this.createWalls();
         this.createDoorways();
 
-        // this.sound.pauseOnBlur=false;
+       // this.sound.pauseOnBlur=false;
         // if(this.roomKey === 'room13'){
         //     this.handleRoom13Animation();
         // }
-        // if(roomKey === 'room13'){
-        //     this.background= this.scene.add.image(400,300,'room13.3.png');
-        //     this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
+// if(roomKey === 'room13'){
+//     this.background= this.scene.add.image(400,300,'room13.3.png');
+//     this.background.setDisplaySize(this.scene.scale.width, this.scene.scale.height);
 
-        //     this.animationState=true;
-        // this.room13Timer=this.scene.time.addEvent({
-        //     delay:500,
+//     this.animationState=true;
+// this.room13Timer=this.scene.time.addEvent({
+//     delay:500,
 
-        // })
-        //}
+// })
+//}
 
-
+        
         // if (this.roomKey === 'room4'){
         //     this.inRoom4=true;
         //     this.lightOn=false;
         // }
-
     }
 
     createWalls() {
@@ -75,6 +71,8 @@ class Room extends Phaser.GameObjects.Container {
         else if (this.roomKey === 'room4') {
             this.walls.add(new Wall(this.scene, 400, 290, 800, 60));
             this.walls.add(new Wall(this.scene, 400, 140, 800, 60));
+
+           
         }
         else if (this.roomKey === 'room5') {
             this.walls.add(new Wall(this.scene, 720, 490, 125, 200));
@@ -125,14 +123,13 @@ class Room extends Phaser.GameObjects.Container {
             this.walls.add(new Wall(this.scene, 80, 590, 100, 30));
             this.walls.add(new Wall(this.scene, 278, 590, 100, 30));
             this.walls.add(new Wall(this.scene, 506, 590, 100, 30));
-            this.walls.add(new Wall(this.scene, 675, 590, 100, 30));
-
-            this.walls.add(new Wall(this.scene, 55, 360, 25, 75));
+            this.walls.add(new Wall(this.scene, 695, 590, 100, 30));
+            this.walls.add(new Wall(this.scene, 55,360,25,75));
         }
         else if (this.roomKey === 'room11') {
-            this.walls.add(new Wall(this.scene, 530, 100, 550, 170));
+            this.walls.add(new Wall(this.scene, 545, 100, 550, 170));
             this.walls.add(new Wall(this.scene, 110, 300, 100, 600));
-            this.walls.add(new Wall(this.scene, 460, 355, 700, 100));
+            this.walls.add(new Wall(this.scene, 450, 355, 700, 100));
         }
         else if (this.roomKey === 'room12') {
             this.walls.add(new Wall(this.scene, 143, 300, 30, 600)); // this is the left wall
@@ -141,10 +138,10 @@ class Room extends Phaser.GameObjects.Container {
         else if (this.roomKey === 'room13') {
             this.walls.add(new Wall(this.scene, 143, 300, 30, 600)); // this is the left wall
             this.walls.add(new Wall(this.scene, 305, 300, 30, 600)); //this is the right wall
-        }
-        // this.spawnItems();
+        } 
+        
+       // this.spawnItems();
     }
-
     // chaseCharacter(character) {
     //     this.scene.physics.moveToObject(this, character, this.speed);
     // }
@@ -155,7 +152,6 @@ class Room extends Phaser.GameObjects.Container {
     //         console.log("Chase event stopped.");
     //     }
     // }
-
     createDoorways() {
         this.doorways.clear(true, true);
 
@@ -176,6 +172,8 @@ class Room extends Phaser.GameObjects.Container {
         else if (this.roomKey === 'room4') {
             this.doorways.add(new Doorway(this.scene, 785, 245, 10, 115, 'room3', 70, 250));
             this.doorways.add(new Doorway(this.scene, 10, 245, 10, 115, 'room5', 770, 350));
+
+           // this.load.images('inkglob','assets/images/ink_glob.png');
         }
 
         else if (this.roomKey === 'room5') {
@@ -219,23 +217,22 @@ class Room extends Phaser.GameObjects.Container {
             this.doorways.add(new Doorway(this.scene, 215, 600, 125, 10, 'room12', 215, 70));
             this.doorways.add(new Doorway(this.scene, 215, 5, 125, 10, 'roomEnd', 575, 595));
         }
-    }
+    } 
+// handleRoom13Animations(){
+//     if(this.scene.hasKey){
+//         this.background.setTexture('room13_3.png');
 
-    // handleRoom13Animations(){
-    //     if(this.scene.hasKey){
-    //         this.background.setTexture('room13_3.png');
-
-    //         this.scene.tweens.add({
-    //             targets:this.background,
-    //             scaleX:1.2,
-    //             scaleY:1.2,
-    //             ease:'Power1',
-    //             duration: 1000,
-    //             yoyo:true,
-    //             repeat: -1
-    //         });
-    //     }
-    // }
+//         this.scene.tweens.add({
+//             targets:this.background,
+//             scaleX:1.2,
+//             scaleY:1.2,
+//             ease:'Power1',
+//             duration: 1000,
+//             yoyo:true,
+//             repeat: -1
+//         });
+//     }
+// }
     // toggleLight(state){
     //     this.lightOn=state;
     //     if(this.lightOn){
@@ -246,6 +243,7 @@ class Room extends Phaser.GameObjects.Container {
     // }
 
 
+
     checkTransition(character) {
         this.scene.physics.world.overlap(character, this.doorways, this.onOverlap, null, this);
     }
@@ -253,13 +251,13 @@ class Room extends Phaser.GameObjects.Container {
     onOverlap(character, doorway) {
         console.log(`Transitioning to ${doorway.targetRoom}...`);
 
-        // if(this.roomKey === 'room13' && doorway.TargetRoom === 'roomEnd'){
-        //     if(!this.scene.hasCode){
-        //         console.log("you need the code to proceed.");
-        //         return;
-        //     }}
+// if(this.roomKey === 'room13' && doorway.TargetRoom === 'roomEnd'){
+//     if(!this.scene.hasCode){
+//         console.log("you need the code to proceed.");
+//         return;
+//     }}
 
-
+    
         this.background.setTexture(doorway.targetRoom);
 
         this.roomKey = doorway.targetRoom;
@@ -273,7 +271,7 @@ class Room extends Phaser.GameObjects.Container {
         this.createDoorways();
 
         this.scene.physics.add.collider(character, this.walls);
+         
     }
 }
 export default Room;
-

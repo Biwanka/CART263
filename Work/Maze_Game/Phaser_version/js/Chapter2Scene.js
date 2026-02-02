@@ -3,15 +3,18 @@ export default class Chapter2Scene extends Phaser.Scene {
         super('Chapter2Scene');
     }
 
+    create(data) {
+        console.log('Chapter 2 Scene loaded');
+        
+        const chapter2Image = this.add.image(400, 300, 'chapter2');
+        chapter2Image.setScale(0.3);
 
-    create() {
+        if (data && data.fromRoom13) {
+            console.log('Transitioned from Room 13 successfully.');
+        }
 
-        this.add.image(400, 300, 'chapter1');
         this.input.on('pointerdown', () => {
             console.log('End of Demo');
         });
     }
-
-
-
 }

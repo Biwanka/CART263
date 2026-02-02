@@ -13,12 +13,10 @@ class Character extends Phaser.Physics.Arcade.Sprite {
 
         // //Handle input keys
         this.keys = scene.input.keyboard.createCursorKeys();
-        this.speed = 300;
+        this.speed = 150;
 
-
-
-        console.log("Character created:", this.x, this.y);
-        console.log(this.position, this.x, this.y);
+        //console.log("Character created:", this.x, this.y);
+       // console.log(this.position, this.x, this.y);
     }
 
     update() {
@@ -57,12 +55,10 @@ class Character extends Phaser.Physics.Arcade.Sprite {
             this.stop(); // Stop animation when no key is pressed
         }
     }
-
-    chaseCharacter(character) {
-        this.scene.physics.moveToObject(this, character, this.speed);
-    }
+chaseCharacter(character) {
+    this.scene.physics.moveToObject(this, character, this.speed);
 }
-
+}
 export default Character;
 
 
